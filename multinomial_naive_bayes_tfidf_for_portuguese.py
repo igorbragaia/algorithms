@@ -53,7 +53,7 @@ class NaiveBayesFaultEstimator:
         return classifier
 
     def classify(self, text):
-        """Classify text, returns fault name"""
+        """Classify text, returns classification name"""
         treated_text = [' '.join(stem(tokenize(text)))]
         prediction_ranking = self.classifier.predict(treated_text)
         return self.reverse_dict_tag[prediction_ranking[0]]
