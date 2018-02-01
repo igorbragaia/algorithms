@@ -106,8 +106,8 @@ def get_data_set(fraction=0.1):
     ]
     shuffle(data_set_afirmative)
     shuffle(data_set_negative)
-    test_set = data_set_afirmative[int(fraction * len(data_set_afirmative)):] + data_set_negative[int(fraction * len(data_set_negative)):]
-    train_set = data_set_afirmative[:int(fraction * len(data_set_afirmative))] + data_set_negative[:int(fraction * len(data_set_negative))]
+    train_set = data_set_afirmative[int(fraction * len(data_set_afirmative)):] + data_set_negative[int(fraction * len(data_set_negative)):]
+    test_set = data_set_afirmative[:int(fraction * len(data_set_afirmative))] + data_set_negative[:int(fraction * len(data_set_negative))]
 
     return test_set, train_set
 
