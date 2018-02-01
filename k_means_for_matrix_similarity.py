@@ -8,11 +8,7 @@ class K_Means:
         :param k: desired amount of clusters
         """
         self.k = k
-        self.data_set = []
-        for data in data_set:
-            matrix = Matrix(data)
-            if matrix.module != 0:
-                self.data_set.append(matrix)
+        self.data_set = [Matrix(matrix) for matrix in data_set]
         self.shape = self.__get_shape()
 
     def __get_shape(self):
