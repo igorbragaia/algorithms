@@ -7,6 +7,7 @@ import numpy as np
 import string
 import nltk
 
+
 def tokenize(text):
     """Tokenizes a text to an array of tokenized words
 
@@ -22,11 +23,8 @@ def tokenize(text):
         text = text.replace(c, ' ')
 
     tokens = nltk.word_tokenize(text)
-    new_tokens = []
-    for token in tokens:
-        if token.isalpha():
-            new_tokens.append(token.lower())
-    return new_tokens
+    return [token.lower() for token in tokens if token.isalpha()]
+
 
 def stem(strs):
     """
@@ -36,6 +34,7 @@ def stem(strs):
     """
     pt_stemmer = nltk.stem.RSLPStemmer()
     return [pt_stemmer.stem(string) for string in strs]
+
 
 class NaiveBayesFaultEstimator:
     def __init__(self, data_set):
