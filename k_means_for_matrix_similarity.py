@@ -102,17 +102,17 @@ class Matrix(object):
 
     def cosine_similarity(self, A, B):
         """
-        :param A: numpy array
-        :param B: numpy array
-        :return: numpy array
+        :param A: numpy matrix
+        :param B: numpy matrix
+        :return: float64
         """
         return self.innerProduct(A, B) / np.sqrt(self.innerProduct(A, A) * self.innerProduct(B, B))
 
     def innerProduct(self, A, B):
         """
-        :param A: numpy array
-        :param B: numpy array
-        :return: numpy array
+        :param A: numpy matrix
+        :param B: numpy matrix
+        :return: float64
         """
         return np.trace(np.dot(A, B.transpose()))
 
