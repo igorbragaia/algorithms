@@ -47,7 +47,7 @@ class K_Means:
             clustering_movements = 0
             clusters = {centroid: [] for centroid in centroids}
             for data in self.data_set:
-                max_distance = -10000
+                max_distance = -2
                 cluster = None
                 for centroid in clusters:
                     centroid_data_cosine = data > centroid
@@ -62,7 +62,8 @@ class K_Means:
             new_centroids = []
             for centroid in clusters:
                 if len(clusters[centroid]) != 0:
-                    new_centroids.append(Matrix(sum([object.matrix for object in clusters[centroid]]) / len(clusters[centroid])))
+                    new_centroid = Matrix(sum([obj.matrix for obj in clusters[centroid]]) / len(clusters[centroid]))
+                    new_centroids.append(new_centroid)
                 else:
                     new_centroids.append(centroid)
             centroids = new_centroids
