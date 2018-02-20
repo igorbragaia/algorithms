@@ -1,4 +1,5 @@
 #include<iostream>
+#include<algorithm>
 #include<map>
 using namespace std;
 
@@ -39,6 +40,10 @@ int main(){
     for(map<student,string>::iterator it = mapa.begin(); it != mapa.end(); it++){
       cout << it->first.nome << ", " << it->first.idade << " anos" << ", frase: " << it->second << endl;
     }
+
+    free(igor);
+    free(katia);
+    free(chicken);
 
   return 0;
 }

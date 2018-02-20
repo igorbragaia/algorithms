@@ -1,4 +1,5 @@
 #include<iostream>
+#include<algorithm>
 #include<queue>
 using namespace std;
 
@@ -44,6 +45,10 @@ int main(){
       cout << top.nome << ", " << top.idade << " anos" << endl;
       pq.pop();
     }
+
+    free(igor);
+    free(katia);
+    free(chicken);
 
   return 0;
 }

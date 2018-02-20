@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
 
 
@@ -42,5 +43,9 @@ int main(){
       cout << vetor[i].nome << ", " << vetor[i].idade << " anos" << endl;
     }
 
-  return 0;
+    free(igor);
+    free(katia);
+    free(chicken);
+
+    return 0;
 }
