@@ -19,7 +19,7 @@ bool unique_char_verifying(string str){
   return response;
 }
 
-// with extra memory in O(n)
+// with less extra memory in O(n)
 bool unique_char_verifying_with_less_memory(string str){
   int checker = 0;
   bool response = true;
