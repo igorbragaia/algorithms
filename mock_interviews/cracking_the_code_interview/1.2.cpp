@@ -2,7 +2,7 @@
 #include<string.h>
 
 
-void reverse_cstyle_array(char * str){
+void reverse_cstyle_1(char * str){
   char tmp;
   int len = strlen(str);
   for(int i = 0; i < len / 2; i++){
@@ -12,7 +12,7 @@ void reverse_cstyle_array(char * str){
   }
 }
 
-void reverse_cstyle_pointer(char * str){
+void reverse_cstyle_2(char * str){
   char * end = str;
   char tmp;
   if(str){
@@ -32,14 +32,14 @@ void reverse_cstyle_pointer(char * str){
 int main(){
   char str1[] = "abcd";
   printf("%s\n", str1);
-  reverse_cstyle_array(str1);
+  reverse_cstyle_1(str1);
   printf("%s\n", str1);
 
   printf("------ \n");
 
   char str2[] = "abcd";
   printf("%s\n", str2);
-  reverse_cstyle_pointer(str2);
+  reverse_cstyle_2(str2);
   printf("%s\n", str2);
 
   return 0;
