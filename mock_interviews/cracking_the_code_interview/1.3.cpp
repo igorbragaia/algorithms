@@ -25,6 +25,7 @@ string removeDuplicates_without_extra_memory(string str){
     return str;
 }
 
+// O(n)
 string removeDuplicates_with_extra_memory(string str){
   if(str == ""){
     return str;
@@ -64,7 +65,6 @@ int main(){
   cout << removeDuplicates_with_extra_memory("aaa") << endl;
   cout << removeDuplicates_with_extra_memory("abc") << endl;
   cout << removeDuplicates_with_extra_memory("aabcdeef") << endl;
-
 
   return 0;
 }
