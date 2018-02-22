@@ -8,8 +8,9 @@ public:
 };
 
 class LinkedList{
-public:
+private:
   Node * head, * tail;
+public:
   LinkedList(){
     head = NULL;
     tail = NULL;
@@ -18,6 +19,12 @@ public:
     head = NULL;
     tail = NULL;
     makeList(num);
+  }
+  Node * get_head(){
+    return head;
+  }
+  Node * get_tail(){
+    return tail;
   }
   void append(int num);
   void makeList(int num);
@@ -72,8 +79,8 @@ int main(){
   linkedlist2.printAll();
 
   LinkedList answer;
-  Node * p1 = linkedlist1.head;
-  Node * p2 = linkedlist2.head;
+  Node * p1 = linkedlist1.get_head();
+  Node * p2 = linkedlist2.get_head();
 
   int plus = 0, sum;
   while(p1 != NULL || p2 != NULL){
