@@ -8,9 +8,12 @@ public:
 };
 
 class LinkedList{
-private:
-  Node * head, * tail;
 public:
+  Node * head, * tail;
+  LinkedList(){
+    head = NULL;
+    tail = NULL;
+  }
   LinkedList(int num){
     head = NULL;
     tail = NULL;
@@ -47,11 +50,15 @@ void LinkedList::append(int num){
 }
 
 void LinkedList::makeList(int num){
-  int current;
-  while(num != 0){
-    current = num%10;
-    num /= 10;
-    append(current);
+  if(num == 0){
+    append(0);
+  } else {
+    int current;
+    while(num != 0){
+      current = num%10;
+      num /= 10;
+      append(current);
+    }
   }
 }
 
@@ -63,5 +70,26 @@ int main(){
 
   LinkedList linkedlist2(y);
   linkedlist2.printAll();
+
+  LinkedList answer;
+  Node * p1 = linkedlist1.head;
+  Node * p2 = linkedlist2.head;
+
+  int plus = 0, sum;
+  while(p1 != NULL || p2 != NULL){
+    sum = (p1 != NULL ? p1->val : 0) + (p2 != NULL ? p2->val : 0) + plus;
+    plus = sum > 9 ? sum - 9 : 0;
+    sum %= 10;
+    answer.append(sum);
+    if(p1 != NULL){
+      p1 = p1->next;
+    }
+    if(p2 != NULL){
+      p2 = p2->next;
+    }
+  }
+
+  answer.printAll();
+
   return 0;
 }
