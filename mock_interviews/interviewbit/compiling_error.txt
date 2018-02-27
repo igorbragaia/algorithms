@@ -1,0 +1,3 @@
+/home/igor/Documentos/algorithms/mock_interviews/interviewbit/Linked_Lists_Remove_Duplicates_from_Sorted_List_II.cpp:9:1: error: ‘ListNode’ does not name a type
+ ListNode* Solution::deleteDuplicates(ListNode* A) {
+ ^
