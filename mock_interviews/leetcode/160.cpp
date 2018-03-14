@@ -6,34 +6,43 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-ListNode * reversedList(ListNode * root){
-  ListNode * p = root, * prev = NULL, * next;
-  while(p != NULL){
-    next = p->next;
-    p->next = prev;
-    prev = p;
-    p = next;
-  }
-  return prev;
-}
+void reverseList(ListNode ** root){
+   ListNode * p = * root, * prev = NULL, * next;
+   while(p != NULL){
+     next = p->next;
+     p->next = prev;
+     prev = p;
+     p = next;
+   }
+   (*root) = prev;
+ }
 
 
-class Solution {
-public:
-    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-      if(headA == NULL || headB == NULL){
-        return NULL;
-      }
-      headA = reversedList(headA);
-      headB = reversedList(headB);
-      ListNode * response = NULL;
-      while(headA != NULL && headB != NULL && headA == headB){
-        headA = headA->next;
-        headB = headB->next;
-        response = headA;
-      }
-      headA = reversedList(headA);
-      headB = reversedList(headB);
-      return response;
-    }
-};
+ class Solution {
+ public:
+     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+       if(headA == NULL || headB == NULL){
+         return NULL;
+       }
+       reverseList(&headA);
+       reverseList(&headB);
+
+       if(headA->val != headB->val){
+         reverseList(&headA);
+         reverseList(&headB);
+         return NULL;
+       }
+
+       ListNode * p = headA, * q = headB;
+       ListNode ** response = &p;
+       while(p != NULL && q != NULL && p->next != NULL && q->next != NULL && p->next->val == q->next->val){
+           p = p->next;
+           q = q->next;
+       }
+
+       reverseList(&headA);
+       reverseList(&headB);
+
+       return *response;
+     }
+ };
