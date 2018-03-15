@@ -35,7 +35,7 @@ public:
           root->right = buildTree(pre, in);
       }
       return root;
-      // inorder: left root right
-      // preorder: root left right
+      //  inorder: left root right
+      //  preorder: root left right
     }
 };
