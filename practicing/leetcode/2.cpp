@@ -12,7 +12,6 @@ public:
     {
         int Cin = 0;
         ListNode *p = l1, *q = l2, *response;
-        ;
 
         int len1 = 0, len2 = 0;
         while (p != NULL) {
