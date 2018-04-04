@@ -143,9 +143,40 @@ private:
 };
 
 
+// this radix not work for two complement binary representation
+class RadixSort : public Sort {
+public:
+    RadixSort(vector<int> input): Sort(input){
+        cout << "RadixSort constructor called!" << endl;
+    }
+    ~RadixSort() {
+      cout << "RadixSort destructor called!" << endl;
+    }
+    void sort(){
+      for(int i = 0; i < 32; i++){
+        queue<int> queues[2];
+        for(unsigned j = 0; j < arr.size(); j++)
+          queues[(bool) (arr[j] & (1 << i))].push(arr[j]);
+        arr.clear();
+        for(int k = 0; k <= 1; k++){
+          while(!queues[k].empty()){
+            arr.push_back(queues[k].front());
+            queues[k].pop();
+          }
+        }
+      }
+    }
+private:
+
+};
+
+
+
 int main()
 {
-    vector<int> array = { 15, 4, 2, 1, 50, -1, 3, 100, 3 };
+    vector<int> array = { 15, 4, 2, 1, 50, 0, 3, 100, 3 };
+
+    // vector<int> array = { 3, 1, 2};
 
     BubbleSort bubblesort(array);
     bubblesort.printArray();
@@ -166,6 +197,11 @@ int main()
     quicksort.printArray();
     quicksort.sort();
     quicksort.printArray();
+
+    RadixSort radixsort(array);
+    radixsort.printArray();
+    radixsort.sort();
+    radixsort.printArray();
 
     return 0;
 }
