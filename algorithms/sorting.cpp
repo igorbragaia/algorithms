@@ -143,7 +143,7 @@ private:
 };
 
 
-// this radix not work for two complement binary representation
+// this radix does not work for two complement binary representation
 class RadixSort : public Sort {
 public:
     RadixSort(vector<int> input): Sort(input){
