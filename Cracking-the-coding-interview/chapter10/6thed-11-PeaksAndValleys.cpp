@@ -55,14 +55,9 @@ int main(){
 				response = false;
 			peak = false;
 		}
-	if(true){
-		cout << array[0];
-		for(int i = 1; i < array.size(); i++)
-			cout << " " << array[i];
-		cout << endl;	
-	} else {
-		cout << "Impossible" << endl;
-	}
-
+	cout << array[0];
+	for(int i = 1; i < array.size(); i++)
+		cout << " " << array[i];
+	cout << endl;	
 	return 0;
 }
