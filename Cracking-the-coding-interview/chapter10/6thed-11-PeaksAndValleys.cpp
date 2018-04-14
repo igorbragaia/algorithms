@@ -43,18 +43,6 @@ int main(){
 		array.push_back(x);
 	}
 	array = Solution().waveSort(array);
-	bool response = true;
-	bool peak = true;
-	for(int i = 1; i < array.size() and response; i++)
-		if(peak){
-			if(array[i] < array[i - 1])
-				response = false;
-			peak = true;
-		} else {
-			if(array[i] > array[i - 1])
-				response = false;
-			peak = false;
-		}
 	cout << array[0];
 	for(int i = 1; i < array.size(); i++)
 		cout << " " << array[i];
