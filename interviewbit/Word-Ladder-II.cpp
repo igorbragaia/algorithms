@@ -8,9 +8,9 @@ vector<vector<string> > Solution::findLadders(string start, string end, vector<s
 		return {{start}};
 	}
 
-    map<string, bool> hash_map;
+    map<string, int> hash_map;
     for(string word:dict){
-    	hash_map[word] = true;
+    	hash_map[word] = -1;
     }
 
 	int path_lenght = 100000;
@@ -32,8 +32,8 @@ vector<vector<string> > Solution::findLadders(string start, string end, vector<s
 					answer.push_back(current_vector);
 					path_lenght = (int) current_vector.size();
 				} else {
-		    		if(hash_map.find(s) != hash_map.end() and hash_map[s] and (int)current_vector.size() < path_lenght){
-		    			hash_map[s] = false;
+		    		if(hash_map.find(s) != hash_map.end() and (hash_map[s] == -1 or hash_map[s] == (int)current_vector.size()) and (int)current_vector.size() < path_lenght){
+		    			hash_map[s] = (int)current_vector.size();
 		    			queue.push(current_vector);	
 		    		}
 				}
