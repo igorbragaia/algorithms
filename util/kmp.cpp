@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
 vector<int> buildPreffix(string pattern){
 	vector<int>preffix((int)pattern.size());
 	for(int i = 1; i < (int)pattern.size(); i++){
@@ -35,6 +36,7 @@ int KMP(string pattern, string text){
 	}
 	return count;
 }
+
 
 int main(){
 	string text,pattern;
