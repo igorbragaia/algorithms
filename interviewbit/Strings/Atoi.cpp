@@ -1,8 +1,7 @@
 int Solution::atoi(const string A) {
 	string str = "";
 	int i = 0;
-	while(A[i] == ' ')
-		i++;
+	while(A[i] == ' ') i++;
 
 	bool neg=false;
 	if(A[i]=='-' and A[i+1] >= '0' and A[i+1] <= '9'){
@@ -21,7 +20,7 @@ int Solution::atoi(const string A) {
 	if((int)str.size() == 0)
 		return 0;
 
-	string minNeg = "-2147483648", maxPos = "2147483647";
+	string minNeg = "2147483648", maxPos = "2147483647";
 	if(neg){
 		if(str.size() > minNeg.size() or (str.size() == minNeg.size() and str > minNeg))
 			return -2147483648;
