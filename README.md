@@ -2,35 +2,47 @@
 
 # InterviewBit
 
-## Level 1
-- [ ] Least Squares (single and multivariable)
+> Level 1
 
-## Level 2
+- [ ] Time Complexity
+
+
+
+> Level 2
+
 - [ ] Arrays
+	- [ ] mastered
+	- [ ] completed
 - [ ] Math
 
-## Level 3
+> Level 3
+
 - [ ] Binary Search
 - [ ] Strings
 - [ ] Bit Manipulation
 - [ ] Two Pointers
 
-## Level 4
+> Level 4
+
 - [ ] Linked Lists
 - [ ] Stacks and Queues
 
-## Level 5
+> Level 5
+
 - [ ] Backtracking
 - [ ] Hashing
 
-## Level 6
+> Level 6
+
 - [ ] Heaps and Maps
 - [ ] Trees
 
-## Level 7
+> Level 7
+
 - [ ] Dynamic Programming
 - [ ] Greedy Algorithm
 
-## Level 8
+> Level 8
+
 - [ ] Graph Data Structure & Algorithms
 - [ ] Code Ninja
