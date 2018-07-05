@@ -3,68 +3,68 @@
 # InterviewBit
 
 ## Level 1
-- [ ] Time Complexity
+- Time Complexity
 	- [ ] mastered
 	- [ ] completed
 
 ## Level 2
-- [ ] Arrays
+- Arrays
 	- [ ] mastered
 	- [ ] completed
-- [ ] Math
+- Math
 	- [ ] mastered
 	- [ ] completed
 
 ## Level 3
-- [ ] Binary Search
+- Binary Search
 	- [ ] mastered
 	- [ ] completed
-- [ ] Strings
+- Strings
 	- [ ] mastered
 	- [ ] completed
-- [ ] Bit Manipulation
+- Bit Manipulation
 	- [ ] mastered
 	- [ ] completed
-- [ ] Two Pointers
+- Two Pointers
 	- [ ] mastered
 	- [ ] completed
 
 ## Level 4
-- [ ] Linked Lists
+- Linked Lists
 	- [x] mastered
 	- [ ] completed
-- [ ] Stacks and Queues
+- Stacks and Queues
 	- [ ] mastered
 	- [ ] completed
 
 ## Level 5
-- [ ] Backtracking
+- Backtracking
 	- [ ] mastered
 	- [ ] completed
-- [ ] Hashing
+- Hashing
 	- [ ] mastered
 	- [ ] completed
 
 ## Level 6
-- [ ] Heaps and Maps
+- Heaps and Maps
 	- [ ] mastered
 	- [ ] completed
-- [ ] Trees
+- Trees
 	- [ ] mastered
 	- [ ] completed
 
 ## Level 7
-- [ ] Dynamic Programming
+- Dynamic Programming
 	- [ ] mastered
 	- [ ] completed
-- [ ] Greedy Algorithm
+- Greedy Algorithm
 	- [ ] mastered
 	- [ ] completed
 
 ## Level 8
-- [ ] Graph Data Structure & Algorithms
+- Graph Data Structure & Algorithms
 	- [x] mastered
 	- [ ] completed
-- [ ] Code Ninja
+- Code Ninja
 	- [ ] mastered
 	- [ ] completed
