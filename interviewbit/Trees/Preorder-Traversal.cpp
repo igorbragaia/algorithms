@@ -14,7 +14,7 @@ struct Print{
     Print(TreeNode*node): left(false), right(false), node(node) {};
 };
 
-vector<int> Solution::inorderTraversal(TreeNode* A) {
+vector<int> Solution::preorderTraversal(TreeNode* A) {
     //left,root,right
     vector<int>response;
     stack<Print>stack;
@@ -27,6 +27,8 @@ vector<int> Solution::inorderTraversal(TreeNode* A) {
         stack.pop();
         
         if(!top.left){
+            response.push_back(top.node->val);
+
             top.left = true;
             stack.push(top);
 
@@ -35,13 +37,14 @@ vector<int> Solution::inorderTraversal(TreeNode* A) {
                 stack.push(newprint);
             }
         } else if(!top.right){
-            response.push_back(top.node->val);
+            top.right = true;
+            stack.push(top);
 
             if(top.node->right != NULL){
                 Print newprint(top.node->right);
                 stack.push(newprint);
             }
-        } 
+        }
     }
     return response;
 }
