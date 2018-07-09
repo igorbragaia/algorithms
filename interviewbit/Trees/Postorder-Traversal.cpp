@@ -15,7 +15,6 @@ struct Print{
 };
 
 vector<int> Solution::postorderTraversal(TreeNode* A) {
-    //left,root,right
     vector<int>response;
     stack<Print>stack;
     if(A != NULL){
