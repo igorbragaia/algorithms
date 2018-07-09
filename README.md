@@ -9,7 +9,7 @@
 
 ## Level 2
 - Arrays
-	- [ ] mastered
+	- [x] mastered
 	- [ ] completed
 - Math
 	- [ ] mastered
