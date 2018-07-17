@@ -17,10 +17,10 @@
 
 ## Level 3
 - Binary Search
-	- [ ] mastered
+	- [x] mastered
 	- [ ] completed
 - Strings
-	- [ ] mastered
+	- [x] mastered
 	- [ ] completed
 - Bit Manipulation
 	- [ ] mastered
