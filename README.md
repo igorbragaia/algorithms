@@ -4,8 +4,8 @@
 
 ## Level 1
 - Time Complexity
-	- [ ] mastered
-	- [ ] completed
+	- [x] mastered
+	- [x] completed
 
 ## Level 2
 - Arrays
