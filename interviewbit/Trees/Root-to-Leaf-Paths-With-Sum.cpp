@@ -8,23 +8,34 @@
  * };
  */
 
-bool hasPath(TreeNode*root, int B, int sum, vector<int>current, vector<vector<int>>&answer){
+bool hasPath(TreeNode*root, vector<int>current, vector<vector<int>>&answer){
     if(root!=NULL){
-
-        sum+=root->val;
         current.push_back(root->val);
 
-        if(root->left==NULL and root->right==NULL and sum==B)
+        if(root->left==NULL and root->right==NULL)
             answer.push_back(current);
 
-        hasPath(root->left,B,sum, current, answer);
-        hasPath(root->right,B,sum,current, answer);
+        hasPath(root->left,current, answer);
+        hasPath(root->right,current, answer);
     }
 }
 
-vector<vector<int> > Solution::pathSum(TreeNode* A, int B) {
+int Solution::sumNumbers(TreeNode* A) {
+    int pot[10000];
+    pot[0]=1;
+    for(int i=1;i<10000;i++)
+        pot[i]=(pot[i-1]*10)%1003;
+
     vector<vector<int>>answer;
     vector<int>current;
-    hasPath(A,B,0,current,answer);
-    return answer;
+    hasPath(A,current,answer);
+    
+    int response=0;
+    for(vector<int> num:answer){
+        for(int i=0;i<(int)num.size(); i++){
+            response=(response+num[i]*pot[(int)num.size()-1-i])%1003;
+        }
+    }
+
+    return response;
 }
