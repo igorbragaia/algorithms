@@ -1,88 +1,102 @@
-struct LinkedListNode {
+struct LinkedListNode{
   int key;
-  LinkedListNode*next,*previuos;
-  LinkedListNode(int _key, LinkedListNode*_previous, LinkedListNode*_next) key(_key), previuos(_previous), next(_next) {};
+  LinkedListNode *next, *previous;
+  LinkedListNode(int _key): key(_key), next(NULL), previous(NULL) {};
 };
 
-struct HashNode {
-  int key, value;
-  LinkedListNode*node;
-  HashNode(int _key, int _value, LinkedListNode*_node) key(_key), value(_value), node(_node) {};
+class LinkedList{
+private:
+  LinkedListNode *first, *last;
+  int capacity, size;
+public:
+  LinkedList(){
+    size = 0; first = NULL; last = NULL;
+  };
+  void setCapacity(int _capacity){ capacity = _capacity;};
+  bool isFull() { return capacity == size; };
+  int deleteOldest();
+  LinkedListNode *moveNodeToThelast(LinkedListNode*node);
+  LinkedListNode *addNodeToTheEnd(int key);
+};
+
+LinkedListNode *LinkedList::addNodeToTheEnd(int key){
+  LinkedListNode *newnode = new LinkedListNode(key);
+  if(first == NULL) {
+    first = newnode;
+    last = first;
+  } else {
+    newnode->previous = last;
+    last->next = newnode;
+    last = last->next;
+  }
+  size++;
+  return newnode;
 }
 
-class LinkedList {
-  private LinkedListNode*begin,*end;
-  public int maxsize,size;
-
-  LinkedList(int _size){
-    begin = NULL;
-    end = NULL;
-    maxsize = _size;
-    size = 0;
+int LinkedList::deleteOldest(){
+  int response = first->key;
+  LinkedListNode*tmp = first;
+  if(first == last){
+    first = NULL;
+    last = NULL;
+  } else if(first != NULL) {
+    first->next->previous = NULL;
+    first = first->next;
   }
+  delete tmp;
+  size--;
+  return response;
+}
 
-  public LinkedListNode addKeyToEnd(int key){
-    LinkedListNode*node(key,NULL,NULL);
-    if(begin == NULL){
-      begin = end = node;
-    } else {
-      node->previous = end;
-      end->next = node;
-      end = node;  
-    }
-    size++;
-    return node;
+LinkedListNode * LinkedList::moveNodeToThelast(LinkedListNode *node){
+  if(node == last) {
+
+  } else if(node == first){
+    first = first->next;
+    first->previous = NULL;
+
+    last->next = node;
+    node->previous = last;
+    node->next = NULL;
+    last = last->next;
+  } else {
+    node->previous->next = node->next;
+    node->next->previous = node->previous;
+    last->next = node;
+    node->previous = last;
+    node->next = NULL;
+    last = last->next;
   }
+  return last;
+}
 
-  public int deleteOldest(){
-    int oldest = begin->key;
-    deleteNode(begin);
-    return oldest;
-  }
-
-  public void deleteNode(LinkedListNode*node){
-    LinkedListNode*tmp = node;
-    if(node == begin){
-      begin = begin->next;
-    } else {
-      node->previous->next = node->next;
-      node->next->previous = node->previous;
-    }
-    delete tmp;
-    size--;
-  }
-
-  public void moveNodeToEnd(LinkedListNode*node){
-      addNodeToEnd(node->key);
-      deleteNode(node);
-  }
-};
-
-map<int,HashNode*>LRUhash;
 LinkedList linkedlist;
-int oldest;
+map<int, pair<int, LinkedListNode*>>hashmap;
 
 LRUCache::LRUCache(int capacity) {
-    LRUhash = map<int, HashNode*>();
-    linkedlist = LinkedList(capacity);
+  linkedlist.setCapacity(capacity);
+  hashmap = map<int, pair<int, LinkedListNode*>>();
 }
 
 int LRUCache::get(int key) {
-    if(LRUmap.find(key) != LRUmap.end())
-        return LRUmap[key]->value;
-    else
-        return -1;
+  if(hashmap.find(key) != hashmap.end()){
+    LinkedListNode*newnode = linkedlist.moveNodeToThelast(hashmap[key].second);
+    hashmap[key].second = newnode;
+    return hashmap[key].first;
+  }
+  else
+    return -1;
 }
 
 void LRUCache::set(int key, int value) {
-    if(LRUmap.find(key) != LRUmap.end()){
-      LRUmap[key]->value = value;
-      linkedlist.moveNodeToEnd(LRUmap[key]);
-    } else {
-      if(linkedlist.size == linkedlist.maxsize)
-        LRUmap.erase(LRUmap.find(linkedlist.deleteOldest()));
-      LinkedListNode*node = inkedlist.addKeyToEnd(key);
-      HashNode *hashnode(key, value, node);
-      LRUmap[key] = hashnode;
-    }
+  if(hashmap.find(key) != hashmap.end()){
+    LinkedListNode*newnode = linkedlist.moveNodeToThelast(hashmap[key].second);
+    hashmap[key].second = newnode;
+    hashmap[key].first = value;
+  } else {
+    if(linkedlist.isFull())
+      hashmap.erase(hashmap.find(linkedlist.deleteOldest()));
+    LinkedListNode *node = linkedlist.addNodeToTheEnd(key);
+    hashmap[key] = make_pair(value, node);
+  }
 }
