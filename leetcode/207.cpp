@@ -1,34 +1,32 @@
+#define WHITE 0
+#define GREY 1
+#define BLACK 2
+
 class Solution {
+private:
+    vector<vector<int>>graph;
+    vector<int>caught;
+    bool dfs(int i){
+        bool response=true;
+        caught[i]=GREY;
+        for(int neighbor:graph[i]){
+            if(caught[neighbor] == GREY)
+                return false;
+            response &= dfs(neighbor);
+        }
+        caught[i]=BLACK;
+        return response;
+    }
 public:
     bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
-        graph.resize(numCourses+2);
-        status.resize(numCourses+2);
-        for(int i = 0; i < numCourses; i++){
-            graph.push_back({});
-            status.push_back(0);
-        }
+        graph = vector<vector<int>>(numCourses, vector<int>());
+        for(pair<int,int>prerequisite:prerequisites)
+            graph[prerequisite.first].push_back(prerequisite.second);
+        caught=vector<int>(numCourses,WHITE);
 
-        for(auto el:prerequisites){
-            printf("%d %d\n",el.second, el.first);
-          graph[el.second].push_back(el.first);
-        }
-        bool answer = true;
-        for(int i = 0;i < numCourses and answer; i++)
-          if(status[i] == 0)
-            answer &= dfs(i);
-        return answer;
-    }
-private:
-    vector<vector<int>> graph;
-    vector<int>status;
-    bool dfs(int current){
-      status[current] = 1;
-      bool answer = true;
-      for(int i = 0; i < graph[current].size() and answer; i++){
-        if(status[graph[current][i]] == 1)
-          return false;
-        answer &= dfs(graph[current][i]);
-      }
-      return answer;
+        bool response = true;
+        for(int i=0;i<numCourses and response;i++)
+          if(caught[i] == WHITE) response &= dfs(i);
+        return response;
     }
 };
