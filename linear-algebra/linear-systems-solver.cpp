@@ -1,4 +1,4 @@
-//++ -std=c++11 linear-systems-solver.cpp -o linear-systems-solver.exe && ./linear-systems-solver.exe > log.txt
+//g++ -std=c++11 linear-systems-solver.cpp -o linear-systems-solver.exe && ./linear-systems-solver.exe > log.txt
 #include<stdio.h>
 #include<vector>
 using namespace std;
