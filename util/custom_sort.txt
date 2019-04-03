@@ -1,0 +1,16 @@
+CUSTOM SORT C++
+
+sort(A.begin(), A.end(), [](const int& a, const int& b){
+  return a > b;
+});
+
+CUSTOM SORT PYTHON
+
+import functools
+given = [3,30,34,5,9]
+def sortingFunc(a,b):
+	ab = b+a*(10**len(str(b)))
+	ba = a+b*(10**len(str(a)))
+	return ab < ba
+output = sorted(given, key=functools.cmp_to_key(sortingFunc))
+output = "".join([str(el) for el in output])
