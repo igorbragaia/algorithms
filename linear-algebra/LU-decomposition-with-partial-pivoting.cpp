@@ -21,30 +21,27 @@ vector<vector<long double> > multiplyMatrices(vector<vector<long double> >A,vect
   return response;
 }
 
-vector<vector<long double> > reorderMatrix(vector<vector<long double> >A, vector<int>idxs){
-  vector<vector<long double> >AA;
-  for(int i=0;i<(int)A.size();i++)
-    AA.push_back(A[idxs[i]]);
-  return AA;
-}
-
 void printMatrix(vector<vector<long double> >eqs){
   cout << "Printing matrix..." << endl;
   long double i,j;
   for(i=0;i<(int)eqs.size();i++){
     for(j=0;j<(int)eqs[i].size();j++)
-      if(eqs[i][j]>=0)  printf("%-3.4Lf ", eqs[i][j]); else   printf("%-3.3Lf ", eqs[i][j]);
+      if(eqs[i][j]>=0)  printf("%5.2Lf ", eqs[i][j]); else   printf("%5.1Lf ", eqs[i][j]);
     printf("\n");
   }
   cout << endl;
 }
 
-tuple< vector<vector<long double>>, vector<vector<long double>>, vector<vector<long double>>, vector<int> > LRU_decomposition_with_partial_pivoting(vector<vector<long double> >originalA){
+tuple< vector<vector<long double>>,
+       vector<vector<long double>>,
+       vector<vector<long double>>,
+       vector<int> > LRU_decomposition_with_partial_pivoting(vector<vector<long double> >originalA){
   vector<vector<long double> > A=originalA;
   vector<vector<long double> > L(A.size(),vector<long double>(A.size(),0)),
                                U(A.size(),vector<long double>(A.size(),0)),
                                basis(A.size(),vector<long double>(A.size(),0));
   vector<int>idxs(A.size(),0);
+  long double delta = (long double)0.0001;
 
   for(int i=0;i<(int)A.size();i++)
     for(int j=0;j<(int)A.size();j++){
@@ -60,13 +57,13 @@ tuple< vector<vector<long double>>, vector<vector<long double>>, vector<vector<l
   int iteration=0,idx,idxU;
   while(iteration < (int)A.size()){
     pivot=-1;
-    for(int i=0;i<(int)A.size();i++)
-      if(!gotcha[i] and abs(A[i][iteration])>pivot){
+    for(int i=0;i<(int)A.size();i++){
+      if(!gotcha[i] and abs(A[i][iteration])>pivot+delta){
         pivot=abs(A[i][iteration]);
         idx=i;
       }
+    }
     gotcha[idx]=true;
-    idxs[idx]=iteration;
     basis[iteration][idx]=1.0;
 
     for(int i=0;i<(int)A.size();i++)
@@ -84,16 +81,6 @@ tuple< vector<vector<long double>>, vector<vector<long double>>, vector<vector<l
     }
     iteration++;
   }
-  // printf("L\n");
-  // printMatrix(L);
-  // printf("U\n");
-  // printMatrix(U);
-  // printf("L*U, reodered\n");
-  // printMatrix(multiplyMatrices(basis, multiplyMatrices(L,U)));
-  // printf("A\n");
-  // printMatrix(originalA);
-  // printMatrix(reorderMatrix(multiplyMatrices(L,U), idxs));
-  // assert(originalA == reorderMatrix(multiplyMatrices(L,U), idxs));
   return make_tuple(L,U,basis,idxs);
 }
 
@@ -172,7 +159,7 @@ vector<vector<long double>>solveLinearSystem(vector<vector<long double> >A,vecto
   printf("L*U\n");
   printMatrix(multiplyMatrices(L,U));
   printf("A=L*U, reordered\n");
-  printMatrix(reorderMatrix(multiplyMatrices(L,U), idxs));
+  printMatrix(multiplyMatrices(basis,multiplyMatrices(L,U)));
   vector<vector<long double> > x=solveLULinearSystem(L,U,basis,b);
   // assert(multiplyMatrices(A,x) == b);
   return x;
@@ -192,10 +179,10 @@ tuple<vector<vector<long double> >,vector<vector<long double> >>createInput(int 
 }
 
 int main(){
-  vector<int>ns{5/*10,20,30*/};
+  vector<int>ns{10,20,30};
   for(int n:ns){
     printf("/*****************************/\n");
-    printf("N=%d\n",n);
+    printf("solving for N=%d\n",n);
     auto input=createInput(n);
     vector<vector<long double> >A=get<0>(input),b=get<1>(input);
     vector<vector<long double>>x=solveLinearSystem(A,b);
@@ -211,7 +198,5 @@ int main(){
     printf("/*****************************/\n");
   }
 
-  // vector<vector<long double> >A{vector<long double>{3,-4,1},vector<long double>{1,2,2},vector<long double>{4,0,-3}}, b{vector<long double>{9},vector<long double>{3},vector<long double>{-2}};
-  // vector<vector<long double>>x=solveLinearSystem(A,b);
   return 0;
 }
