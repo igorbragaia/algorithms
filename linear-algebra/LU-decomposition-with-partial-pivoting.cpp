@@ -2,6 +2,49 @@
 #include<tuple>
 using namespace std;
 
+vector<vector<long double> > multiplyMatrices(vector<vector<long double> >A,
+                                              vector<vector<long double> >B);
+void printMatrix(vector<vector<long double> >eqs);
+tuple< vector<vector<long double>>,
+       vector<vector<long double>>,
+       vector<vector<long double>>,
+       vector<int> > LRU_decomposition_with_partial_pivoting(vector<vector<long double> >originalA,
+                                                             bool partialPivot);
+vector<vector<long double>> directSubstitution(vector<vector<long double>> A,
+                                               vector<vector<long double>>b);
+vector<vector<long double>> inverseSubstitution(vector<vector<long double>> A,
+                                                vector<vector<long double>>b);
+vector<vector<long double>> solveLULinearSystem(vector<vector<long double>>L,
+                                                vector<vector<long double>>U,
+                                                vector<vector<long double>>basis,
+                                                vector<vector<long double>>b);
+vector<vector<long double>>solveLinearSystem(vector<vector<long double> >A,
+                                             vector<vector<long double> >b);
+tuple<vector<vector<long double> >,vector<vector<long double> >>createInput(int n);
+
+int main(){
+  vector<int>ns{10,20,30};
+  for(int n:ns){
+    printf("/*****************************/\n");
+    printf("solving for N=%d\n",n);
+    auto input=createInput(n);
+    vector<vector<long double> >A=get<0>(input),b=get<1>(input);
+    vector<vector<long double>>x=solveLinearSystem(A,b);
+    printf("PRINTING RESULTS: Ax=b\n");
+    printf("A\n");
+    printMatrix(A);
+    printf("x\n");
+    printMatrix(x);
+    printf("A*x\n");
+    printMatrix(multiplyMatrices(A,x));
+    printf("b\n");
+    printMatrix(b);
+    printf("/*****************************/\n");
+  }
+
+  return 0;
+}
+
 vector<vector<long double> > multiplyMatrices(vector<vector<long double> >A,vector<vector<long double> >B){
   vector<vector<long double> >response;
   assert(A[0].size() == B.size());
@@ -181,27 +224,4 @@ tuple<vector<vector<long double> >,vector<vector<long double> >>createInput(int 
     A.push_back(tmp);
   }
   return make_tuple(A,b);
-}
-
-int main(){
-  vector<int>ns{10,20,30};
-  for(int n:ns){
-    printf("/*****************************/\n");
-    printf("solving for N=%d\n",n);
-    auto input=createInput(n);
-    vector<vector<long double> >A=get<0>(input),b=get<1>(input);
-    vector<vector<long double>>x=solveLinearSystem(A,b);
-    printf("PRINTING RESULTS: Ax=b\n");
-    printf("A\n");
-    printMatrix(A);
-    printf("x\n");
-    printMatrix(x);
-    printf("A*x\n");
-    printMatrix(multiplyMatrices(A,x));
-    printf("b\n");
-    printMatrix(b);
-    printf("/*****************************/\n");
-  }
-
-  return 0;
 }
