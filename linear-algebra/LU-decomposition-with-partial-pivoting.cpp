@@ -35,7 +35,7 @@ void printMatrix(vector<vector<long double> >eqs){
 tuple< vector<vector<long double>>,
        vector<vector<long double>>,
        vector<vector<long double>>,
-       vector<int> > LRU_decomposition_with_partial_pivoting(vector<vector<long double> >originalA){
+       vector<int> > LRU_decomposition_with_partial_pivoting(vector<vector<long double> >originalA, bool partialPivot){
   vector<vector<long double> > A=originalA;
   vector<vector<long double> > L(A.size(),vector<long double>(A.size(),0)),
                                U(A.size(),vector<long double>(A.size(),0)),
@@ -56,11 +56,15 @@ tuple< vector<vector<long double>>,
   long double pivot,m;
   int iteration=0,idx,idxU;
   while(iteration < (int)A.size()){
-    pivot=-1;
-    for(int i=0;i<(int)A.size();i++){
-      if(!gotcha[i] and abs(A[i][iteration])>pivot+delta){
-        pivot=abs(A[i][iteration]);
-        idx=i;
+    if(!partialPivot)
+      idx=iteration;
+    else {
+      pivot=-1;
+      for(int i=0;i<(int)A.size();i++){
+        if(!gotcha[i] and abs(A[i][iteration])>pivot+delta){
+          pivot=abs(A[i][iteration]);
+          idx=i;
+        }
       }
     }
     gotcha[idx]=true;
@@ -144,7 +148,7 @@ vector<vector<long double>> solveLULinearSystem(vector<vector<long double>>L, ve
 vector<vector<long double>>solveLinearSystem(vector<vector<long double> >A,vector<vector<long double> >b){
   vector<vector<long double> >L,U,basis;
   vector<int>idxs;
-  auto tmp=LRU_decomposition_with_partial_pivoting(A);
+  auto tmp=LRU_decomposition_with_partial_pivoting(A,false);
   L=get<0>(tmp);
   U=get<1>(tmp);
   basis=get<2>(tmp);
@@ -164,6 +168,7 @@ vector<vector<long double>>solveLinearSystem(vector<vector<long double> >A,vecto
   // assert(multiplyMatrices(A,x) == b);
   return x;
 }
+
 
 tuple<vector<vector<long double> >,vector<vector<long double> >>createInput(int n){
   vector<vector<long double> >A,b;
