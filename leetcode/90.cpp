@@ -1,8 +1,9 @@
 class Solution {
 public:
-    vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         vector<int> bitmask{0}, aux, current;
-        vector<vector<int>> response;
+        set<vector<int>>response_set;
+        vector<vector<int>>response;
         for(int i = 0; i < (int)nums.size(); i++){
           aux = bitmask;
           for(int j = 0; j < (int)aux.size(); j++)
@@ -13,8 +14,11 @@ public:
           for(int j = 0; j < (int)nums.size(); j++)
             if(1 << j & bitmask[i])
               current.push_back(nums[j]);
-          response.push_back(current);
+          sort(current.begin(), current.end());
+          response_set.insert(current);
         }
+        for(set<vector<int>>::iterator it=response_set.begin(); it!=response_set.end();it++)
+            response.push_back(*it);
         return response;
     }
 };
