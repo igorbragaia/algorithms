@@ -77,7 +77,8 @@ vector<float> directSubstitution(vector<vector<float>> eqs){
 
 vector<float> inverseSubstitution(vector<vector<float>> eqs){
   vector<float>response((int)eqs.size());
-  int i,j,sum;
+  int i,j;
+  float sum;
   for(i=0;i<(int)eqs.size();i++){
     sum = eqs[i][(int)eqs[i].size()-1];
     for(j=i-1;j>=0;j--)
