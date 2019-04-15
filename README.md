@@ -25,7 +25,7 @@
 	- [x] mastered
 	- [ ] completed
 - Bit Manipulation
-	- [ ] mastered
+	- [x] mastered
 	- [ ] completed
 - Two Pointers
 	- [ ] mastered
