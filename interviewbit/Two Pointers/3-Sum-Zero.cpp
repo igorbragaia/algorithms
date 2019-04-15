@@ -1,33 +1,37 @@
-#define INF 1e10
+vector<pair<int,int>> solveTwoSum(vector<int>&A,int sum, int idxSkip){
+    vector<pair<int,int>>response;
+    int i=0, j=(int)A.size()-1, tmp_sum;
+    while(i<j){
+        tmp_sum=A[i]+A[j];
+        if(tmp_sum==sum){
+            if(i != idxSkip and j != idxSkip)
+                response.push_back(make_pair(i,j));
+            i++;
+        }
+        if(tmp_sum<sum)
+            i++;
+        else
+            j--;
+    }
+    return response;
+}
 
 vector<vector<int> > Solution::threeSum(vector<int> &A) {
-  vector<vector<int>>response;
-  if((int)A.size()==0)return response;
-  set<vector<int>>setresponse;
-  vector<int>tmp;
-
-  sort(A.begin(), A.end());
-  int i,j, size=(int)A.size();
-  long long int sum;
-  for(int k=0;k<size;k++){
-    i=k+1; j=size-1;
-    while(i<j){
-        if(i==k) i++;
-        else if(j==k) j--;
-        else {
-          sum = (long long int)A[i]+A[j]+A[k];
-
-          tmp = vector<int>{A[i],A[j],A[k]};
-          sort(tmp.begin(), tmp.end());
-          if(sum == 0) setresponse.insert(tmp);
-
-          if(A[i]+A[j]+A[k] < 0) i++;
-          else j--;
+    set<vector<int>>ans;
+    vector<vector<int>>ans_vector;
+    vector<pair<int,int>>tuples;
+    vector<int>tmp;
+    sort(A.begin(),A.end());
+    for(int i=0;i<(int)A.size();i++){
+        tuples=solveTwoSum(A, -A[i], i);
+        for(pair<int,int> tuple:tuples){
+            tmp=vector<int>{A[i],A[tuple.first],A[tuple.second]};
+            sort(tmp.begin(),tmp.end());
+            ans.insert(tmp);
         }
     }
-  }
-  for(set<vector<int>>::iterator it=setresponse.begin();it!=setresponse.end();it++)
-    response.push_back(*it);
-
-  return response;
+    for(set<vector<int>>::iterator it=ans.begin();it!=ans.end();it++)
+        ans_vector.push_back(*it);
+    sort(ans_vector.begin(),ans_vector.end());
+    return ans_vector;
 }

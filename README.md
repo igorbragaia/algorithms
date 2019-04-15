@@ -2,20 +2,22 @@
 
 # InterviewBit
 
-## Level 1
+## Programming
+
+### Level 1
 - Time Complexity
 	- [x] mastered
 	- [x] completed
 
-## Level 2
+### Level 2
 - Arrays
 	- [x] mastered
 	- [ ] completed
 - Math
-	- [ ] mastered
+	- [x] mastered
 	- [ ] completed
 
-## Level 3
+### Level 3
 - Binary Search
 	- [x] mastered
 	- [ ] completed
@@ -29,15 +31,15 @@
 	- [ ] mastered
 	- [ ] completed
 
-## Level 4
+### Level 4
 - Linked Lists
 	- [x] mastered
 	- [ ] completed
 - Stacks and Queues
-	- [ ] mastered
+	- [x] mastered
 	- [ ] completed
 
-## Level 5
+### Level 5
 - Backtracking
 	- [ ] mastered
 	- [ ] completed
@@ -45,7 +47,7 @@
 	- [ ] mastered
 	- [ ] completed
 
-## Level 6
+### Level 6
 - Heaps and Maps
 	- [ ] mastered
 	- [ ] completed
@@ -53,7 +55,7 @@
 	- [ ] mastered
 	- [ ] completed
 
-## Level 7
+### Level 7
 - Dynamic Programming
 	- [ ] mastered
 	- [ ] completed
@@ -61,10 +63,29 @@
 	- [ ] mastered
 	- [ ] completed
 
-## Level 8
+### Level 8
 - Graph Data Structure & Algorithms
 	- [x] mastered
 	- [ ] completed
 - Code Ninja
 	- [ ] mastered
+	- [ ] completed
+
+## System Design
+
+### Level 1
+-  Storage Scalability
+	- [x] mastered
+	- [ ] completed
+
+### Level 2
+- System Design Interview Questions
+	- [ ] mastered
+	- [ ] completed
+
+## Databases
+
+### Level 1
+- SQL Programming
+	- [x] mastered
 	- [ ] completed
