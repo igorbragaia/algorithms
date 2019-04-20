@@ -59,7 +59,39 @@ Note that when scalling horizontally, you should keep a distributed cache in ord
 
 ### Load Balancer
 
-Balances traffic by distributing request across multiple servers or databases, using different approaches like Round Robin (1->2->3->..->1->2->...) or smarter approaches like distributing traffic by kind of request (get/post image,video,text, json etc) which tends to have a better performance;
+A load balancer is a device that acts as a reverse proxy and distributes network or application traffic across a number of servers. Load balancers are used to increase capacity (concurrent users) and reliability of applications. They improve the overall performance of applications by decreasing the burden on servers associated with managing and maintaining application and network sessions, as well as by performing application-specific tasks.
+
+Load balancers are generally grouped into two categories: Layer 4 and Layer 7. Layer 4 load balancers act upon data found in network and transport layer protocols (IP, TCP, FTP, UDP). Layer 7 load balancers distribute requests based upon data found in application layer protocols such as HTTP.
+
+Requests are received by both types of load balancers and they are distributed to a particular server based on a configured algorithm. Some industry standard algorithms are:
+
+* Round robin
+
+* Weighted round robin
+
+* Least connections
+
+* Least response time
+
+* Type of request
+
+Layer 7 load balancers can further distribute requests based on application specific data such as HTTP headers, cookies, or data within the application message itself, such as the value of a specific parameter.
+
+Load balancers ensure reliability and availability by monitoring the "health" of applications and only sending requests to servers and applications that can respond in a timely manner.
+
+### HTTP vs WebSocket
+
+- HTTP is a uni-directional communicational protocol, whereas WebSocket is bi-directional.
+- Whenever a request is made through HTTP, it creates a connection at the client(browser) and closes it once the response from the server is received. Whereas in WebSocket, it keeps the connection open until the state has died.
+- Http should not be used, when you don’t want the connection to be opened for a long time, whereas WebSocket can be used in that case.
+- Http works poorly with frequent kind of application, which overloads the server. Whereas WebSocket can be used with Chat, Trading, frequent updates kind of application, where a request is made very frequently.
+- Http uses HTTP or https protocol for sending a request(like http://www.google.com), whereas WebSocket uses ws protocol( like ws://www.google.com).
+
+### Cross-origin resource sharing (CORS)
+
+Cross-origin resource sharing (CORS) is a mechanism that allows restricted resources on a web page to be requested from another domain outside the domain from which the first resource was served.[1] A web page may freely embed cross-origin images, stylesheets, scripts, iframes, and videos.[2] Certain "cross-domain" requests, notably Ajax requests, are forbidden by default by the same-origin security policy.
+
+CORS defines a way in which a browser and server can interact to determine whether or not it is safe to allow the cross-origin request.[3] It allows for more freedom and functionality than purely same-origin requests, but is more secure than simply allowing all cross-origin requests.
 
 ### Case study
 
@@ -78,6 +110,13 @@ The other option is to replicate data asynchronously. In this model, every appli
 The "P" is not something you have a choice of trading off. Network partitions occur -- live with it. Hence, you can pick between AP and CP systems. Cassandra is an AP system. HBase is CP. Many traditional RDBMS systems, though they might have been CP at some point, have adopted eventual consistency to keep up with the times -- e.g. Oracle Golden Gate!
 
 ### SQL Storage Scalability
+
+#### Master Slave approach
+Master databases receive and store data from applications. Slave databases get copies of that data from the masters. Slaves are therefore read-only from the application's point of view while masters are read-write.
+
+Writes to a database are more "expensive" than reads. Checking for data integrity and writing updates to physical disks, for example, consume system resources. Most web applications require a much higher ratio of reads to writes. For example a person may write an article once and then it’s read thousands of times. So setting up master-slave replication in the right scenario lets an application distribute its queries efficiently. While one database is busy storing information the others can be busy serving it without impacting each other. Most often each master and slave database are run on separate servers or virtual environments. Each is then tailored and optimized for their needs.
+
+Master database servers may be optimized for writing to permanent storage. Slave database servers may have more RAM for query caching. Tuning the environments and database settings makes each more optimized for reading or writing, improving the overall efficiency of the application.
 
 * Replication Master-Slave
 
@@ -102,7 +141,15 @@ The "P" is not something you have a choice of trading off. Network partitions oc
 
 # Examples
 
-## Design
+## System-design: Tiny URL
+
+* **Features**
+
+* **Estimations**
+* **Design goals**
+* **Skeleton**
+* **Deep dive**
+
 
 
 <!-- https://www.palantir.com/library/
