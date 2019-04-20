@@ -53,9 +53,10 @@ Final note: There really is no such thing as "NoSQL" - it's just a meaningless t
 
 ## SQL Storage Scalability
 
+![Alt text](/replication-master-slave.png?raw=true "Optional Title")
+
 * Replication Master-Slave
 
-![Alt text](/replication-master-slave.png?raw=true "Optional Title")
 
 * Replication Master-Master
 
