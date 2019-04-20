@@ -167,7 +167,7 @@ QPS (queries per second)
 **Skeleton**
 
 - Systems works like a scalable hash map, so we need only two endpoints: shorteningUrl(original Url) and retrieveUrl(short Url);
-- Load balancer with distributed cache
+- Load balancer with distributed cache like Redis or Memcache;
 - Typical queries: shorteningUrl(original Url) => "client -> server -> db"; retrieveUrl(short Url) => "client <-> server <-> db";
 
 **Deep dive**
@@ -207,14 +207,19 @@ SQL vs NoSQL
 - Consistency vs Availability: consistency is preferred regarding CAP theorem and we want a distributed system across world;
 
 **Skeleton**
-- Project works through websocket other than http requests in order to manage directional requests (server->client, client->server);
+
+- Project works through websocket other than http requests in order to manage bi-directional requests (server->client, client->server);
 - What operations do we need to support? send message to other person, receive message if online, fetch most recent conversations, fetch most recent messages for given conversation;
 - API endpoints: sendMessage(sender,receiver,content), fetchConversations(user,qty_threshold), fetchMessages(conversation,qty_threshold)
-- Typical write query: client makes a get/post async request to backend, server persist data to database and notifyee user if online and update conversation flags like last updated time;
+- Typical write query: client makes a get/post async request to backend, server persist data to database, notifyee user if online and update conversation flags like last updated time;
 - Typical read query: client makes a get/post async request to backend, server takes a lookup query at database and give user json response;
+- Load balancer with distributed cache to store what servers are managing what users and when last iteration has been done in order to check what time users have been online last time and if they're online, what server is managing him. Cache will be in-memory, partially consistent and with Master-Slave Replication just like Redis or Memcache;
 
 **Deep dive**
 
+- Users login/logout flow: subscribe user status and what servers is managing him at distributed cache; if server that's managing him dies, a new one can be got and just updating distributed cache is enough to garantee workflow keep working; if user dies, last time it has been online can be seen at distributed cache;
+ Messages workflow:
+ - Let's suppose you have userA online and server N1 managing him as well as userB and server N2; If userA wants to send a message to userB, then it sends a message to Load Balancer which redirects traffic to N1; then N1 persists message to database; check N1 checks at distributed cache if userB is online and what server is managing him; if userB is online, N1 sends a message to server that manages userB then this server sends a message to userB through a WebSocket request; if userB if offline, just flag this user has unread messages and when userB gets online, server notifyees all unread table and updates distributed cache as well;
 
 
 
