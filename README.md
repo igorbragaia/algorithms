@@ -148,7 +148,7 @@ Master database servers may be optimized for writing to permanent storage. Slave
 - Client: UI with ansyncronous forms to allow user to short Url; also need another endpoint to redirect shortened Url;
 - API endpoints: shorteningUrl(original Url) and retrieveUrl(short Url);
 - System high scalable and system that saves usage statistics;
-- Same Url shortened multiple times give different shortened Urls;
+- Same Url shortened multiple times might give different shortened Urls;
 
 **Estimations**
 
@@ -156,31 +156,31 @@ QPS (queries per second)
 - Read query right after write query => keep a distributed cache;
 - Many more read than write queries;
 - System high scalable;
-- Considering we'll have A-Z, a-z, 0-9 characters, we have 62 different posssible characters. Then we have 62^c possible shortened Url, regarding we have c characers. So if we short 1000 urls/second and store results for 5 years, we'd need c=ceil(log62(1000*60*60*23*365*5))=7; characters to support all shortened Urls;
+- Considering we'll have A-Z, a-z, 0-9 characters, we have 62 different posssible characters. Then we have 62^c possible shortened Url, regarding we have c characers. So if we short 1000 urls/second and store results for 5 years, we'd need c=ceil(log62(1000 * 60 * 60 * 23 * 365 * 5))=7; characters to support all shortened Urls;
 
 **Design goals**
 
 - Low latency regarding shortened Url is useless if it takes a long while to load, just like DNS;
-- Partition: necessary regarding we need a distributed system across world
+- Partition: necessary regarding we need a distributed system across world;
 - Consistency vs Availability: it is better to have a consistent system than a 100% available that gives unreliable Urls;
 
 **Skeleton**
 
 - Systems works like a scalable hash map, so we need only two endpoints: shorteningUrl(original Url) and retrieveUrl(short Url);
 - Load balancer with distributed cache
-- Typical queries: shorteningUrl(original Url) => client -> server -> db; retrieveUrl(short Url) <-> server <-> db;
+- Typical queries: shorteningUrl(original Url) => "client -> server -> db"; retrieveUrl(short Url) => "client <-> server <-> db";
 
 **Deep dive**
 
 How to hash?
-- Shortening same Url multiple times will lead to different shortened ones.
-- Take simple incremental index, convert it to base 62 and then add randomness through few bits.
+- Shortening same Url multiple times will lead to different shortened ones to possible be used for caching purposes;
+- Take simple incremental index, convert it to base 62 and then add randomness through few bits at the end;
 
 SQL vs NoSQL
-- Joins required? No, simple schema with shortened url, original url, index and some statistics!;
-- All fits inside one machine, which allow indexing? Considering each row takes few bytes, we would have log2(1000*60*60*23*365*5)=2^37=2^7 GB = ~0.5TB => fits on single machine;
+- Joins required? No, simple schema with shortened url, original url, index and some statistics;
+- All fits inside one machine what allow indexing? Considering each row takes few bytes, we would have log2(1000 * 60 * 60 * 23 * 365 * 5)=2^37=2^7 GB => ~1TB => fits on single machine;
 - Regarding we don't need sharding at all, SQL storage is enough, otherwise NoSQL would be easier because it auto scales easily but does not have ACID support. Note that once we've choosen consistency rather than availability, SQL is better regarding ACID support;
-- SQL-specific design: distributed cache like Redis or Memcache which works through a LRU cache regarding RAID (Redundant Array of Independent Disks) support; Replication Master-Slave databases, with Master allowing higher latency read-write queries while Slaves replicates Master allowing low latency read-only queries;
+- SQL-specific design: distributed cache like Redis or Memcache which works through a LRU cache regarding RAID (Redundant Array of Independent Disks) support; Replication Master-Slave databases, with Master allowing higher latency read-write queries while Slaves replicates Master and allows low latency read-only queries;
 - If we needed to shard, we might use consistent hashing;
 
 <!-- https://www.palantir.com/library/
