@@ -51,7 +51,23 @@ Final note: There really is no such thing as "NoSQL" - it's just a meaningless t
 * Graph (neo4j, titan)
 * Search (optimized for storing and searching against text, elasticsearch, solr, lucene)
 
-## SQL Storage Scalability
+#### Case study
+
+Web-scale companies such as LinkedIn, Netflix, Google, Facebook, etc... have several requirements of their database systems around scalability, availability, and performance.
+
+Let's discuss performance first. These companies have users the world over. Should users far from the data centers experience worse performance than those nearby? Imagine a data center is in Virginia, should US East Coast users get a much better experience than say users in China or Japan? If the answer is no, which it often is, then a company will deploy a few data centers in different parts of the world and partition their users using something like IP Anycast so that all of their users experience the fewest possible hops by being routed to the closest data center.
+
+Now, what happens if one of these data centers experiences an outage? Should all users belonging to that data center experience the outage while there are in fact operational data centers. In this case, longer response times are better than no responses.  In this case, web scale companies fail over traffic to the operational data centers.
+
+Now, assume that database tables are partitioned by user and that all data centers have all of the data -- they need this in order to support failover between data centers. However, in most cases, writes for a particular user will happen in one data center (let's call this the home data center) and will need to be copied or replicated to the other data centers.
+
+This is where CAP comes in. If the replication is synchronous, then you can achieve "consistency". You can achieve this by using 2PC-like protocols. The problem is that these protocols reduce the throughput of transactions. They take longer to run and hence less work gets done. As a result, transactions "back-up", connection pools are drained, and your scalability (number of concurrent transaction) drops. You are now prone to hitting a scalability bottleneck, which will cause intermittent outages of sorts (e.g. every other click on your site will timeout or fail fast). Hence, at the cost of consistency, you have compromised availability.
+
+The other option is to replicate data asynchronously. In this model, every application writes to its local data base and immediately returns. All transactions remain fast and the transaction throughput remains high. Availability is not impacted. However, views are not consistent between data centers because data is delayed by definition, though this window of inconsistency can be made to be few minutes or better on average. This model is also called eventual consistency and was made popular by Amazon's Dynamo paper.
+
+The "P" is not something you have a choice of trading off. Network partitions occur -- live with it. Hence, you can pick between AP and CP systems. Cassandra is an AP system. HBase is CP. Many traditional RDBMS systems, though they might have been CP at some point, have adopted eventual consistency to keep up with the times -- e.g. Oracle Golden Gate!
+
+### SQL Storage Scalability
 
 * Replication Master-Slave
 
@@ -72,6 +88,9 @@ Final note: There really is no such thing as "NoSQL" - it's just a meaningless t
 * Load Balancer + Replication + Partitioning
 
 ![alt text](https://raw.githubusercontent.com/igorbragaia/algorithms/e0329f7c64dfd13b55208e6b964bbd321908703a/interviewbit/System-Design-notes/load-balancing%2Breplication%2Bpartitioning.png)
+
+
+
 
 
 <!-- https://www.palantir.com/library/
