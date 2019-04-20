@@ -54,19 +54,24 @@ Final note: There really is no such thing as "NoSQL" - it's just a meaningless t
 ## SQL Storage Scalability
 
 * Replication Master-Slave
-![alt text](http://url/to/img.png)
+
+![alt text](https://raw.githubusercontent.com/igorbragaia/algorithms/e0329f7c64dfd13b55208e6b964bbd321908703a/interviewbit/System-Design-notes/replication-master-slave.png)
 
 * Replication Master-Master
-![alt text](http://url/to/img.png)
+
+![alt text](https://raw.githubusercontent.com/igorbragaia/algorithms/e0329f7c64dfd13b55208e6b964bbd321908703a/interviewbit/System-Design-notes/replication-master-master.png)
 
 * Load Balancer
-![alt text](http://url/to/img.png)
+
+![alt text](https://raw.githubusercontent.com/igorbragaia/algorithms/e0329f7c64dfd13b55208e6b964bbd321908703a/interviewbit/System-Design-notes/load-balancer.png)
 
 * Load Balancer + Replication
-![alt text](http://url/to/img.png)
+
+![alt text](https://raw.githubusercontent.com/igorbragaia/algorithms/e0329f7c64dfd13b55208e6b964bbd321908703a/interviewbit/System-Design-notes/load-balancing%2Breplication.png)
 
 * Load Balancer + Replication + Partitioning
-![alt text](http://url/to/img.png)
+
+![alt text](https://raw.githubusercontent.com/igorbragaia/algorithms/e0329f7c64dfd13b55208e6b964bbd321908703a/interviewbit/System-Design-notes/load-balancing%2Breplication%2Bpartitioning.png)
 
 
 <!-- https://www.palantir.com/library/
