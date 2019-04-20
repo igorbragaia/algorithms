@@ -183,6 +183,41 @@ SQL vs NoSQL
 - SQL-specific design: distributed cache like Redis or Memcache which works through a LRU cache regarding RAID (Redundant Array of Independent Disks) support; Replication Master-Slave databases, with Master allowing higher latency read-write queries while Slaves replicates Master and allows low latency read-only queries;
 - If we needed to shard, we might use consistent hashing;
 
+
+## System-design: Facebook-like messenger
+
+**Features**
+
+- What is the scale we're looking for? Really scalable system, should check if all data really fits only single machine;
+- Only 1:1 conversations? Yes, let's design only 1:1 and as follow up we try to intruduce group conversations;
+- Attachments messages support? Yes;
+- Length limited messages? Yes, not many more than a hundread charaters;
+- Notification system for real time chat? Yes;
+- High security levels required? No;
+
+**Estimations**
+
+- Given there are billion of people using Facebook, let's consider there are around a billion messages a day; Then assuming a message have around 100 characters, there are ~10^9 * 10^12 ~ 10^11 characters sent every day, it means we have to store 2^(ceil(log2(10^11))) ~ 2^37 ~ 1TB/day so we know only one single machine is not enough;
+
+**Design goals**
+
+- High latency required;
+- High consistency required;
+- Good to have high availability;
+- Consistency vs Availability: consistency is preferred regarding CAP theorem and we want a distributed system across world;
+
+**Skeleton**
+- Project works through websocket other than http requests in order to manage directional requests (server->client, client->server);
+- What operations do we need to support? send message to other person, receive message if online, fetch most recent conversations, fetch most recent messages for given conversation;
+- API endpoints: sendMessage(sender,receiver,content), fetchConversations(user,qty_threshold), fetchMessages(conversation,qty_threshold)
+- Typical write query: client makes a get/post async request to backend, server persist data to database and notifyee user if online and update conversation flags like last updated time;
+- Typical read query: client makes a get/post async request to backend, server takes a lookup query at database and give user json response;
+
+**Deep dive**
+
+
+
+
 <!-- https://www.palantir.com/library/
 https://www.youtube.com/watch?v=QwoCgLvoUvs
 https://www.youtube.com/watch?v=U0xTu6E2CT8
