@@ -217,13 +217,35 @@ SQL vs NoSQL
 
 **Deep dive**
 
-Users login/logout flow
+Users login/logout workflow
 - Subscribe user status and what servers is managing him at distributed cache; if server that's managing him dies, a new one can be got and just updating distributed cache is enough to garantee workflow keep working; if user dies, last time it has been online can be seen at distributed cache;
 
  Messages workflow
- - Let's suppose you have userA online and server N1 managing him as well as userB and server N2; If userA wants to send a message to userB, then it sends a message to Load Balancer which redirects traffic to N1; then N1 persists message to database; then N1 checks at distributed cache if userB is online and what server is managing him; if userB is online, N1 sends a message to server that manages userB then this server sends a message to userB through a websocket request; if userB if offline, just flag this user has unread messages and when userB gets online, server notifyees this user with all unread messages and updates distributed cache as well;
+ - Let's suppose you have userA online and server N1 managing him as well as userB and server N2; If userA wants to send a message to userB, then it sends a message to Load Balancer which redirects traffic to N1; then N1 persists message to database; then N1 checks at distributed cache if userB is online and what server is managing him; if userB is online, N1 sends a message to server that manages userB then this server sends a message to userB through a websocket request; if userB if offline, just flag this user has unread messages and when userB gets online, server notifyees this user with all unread messages and updates distributed cache as well; note that when userB gets online, if userA is still online, it is notifyee that userB has read his messages;
 
+ File storage
+ - When some user wants to send an attachement, store this file at a blob storage like Amazon S3 then send only link as message content; if any user wants to see file, when you click on this, you load this blob from file storage;
 
+ SQL vs NoSQL
+- Are joins required? Yes, we would need to join users -> conversations, conversation->message, then SQL would be better;
+- Do all data fit on a single machine? No, it does not as have estimated previously. If we use SQL we would have a sharding overhead, regarding NoSQL technologies consider data does not fit into a sigle machine and auto scales automatically, a NoSQL technology would be better;
+- What is the read-write pattern? We need a considerably amount of write. Regarding write on SQL databases are not only appending a row to a table but also updating indexes and linking tables, there are NoSQL technologies that supports better high write flow so a NoSQL technology would be better;
+- Due to size of DB and technology maturity, we choose NoSQL;
+
+Schemas design
+
+NoSQL approach
+- Distributed cache: user|server|heartbeat_time
+- Regarding we have a NoSQL storage, all user would have their own copy of the message box; that means that we will store 2 copies of the message, one for each participant for every message sent;
+- **Data will be sharded** based on users; then for a user we'd need to lookup conversations then messages; **--not sure how to query this data, seems to be a bit messy;**
+
+On the other hand, if we had choosen SQL approach, we'd have
+- messages/conversation table: conversation_id|time|text|from_user|blob_url
+- unread table: from_user|to_user|time
+- read table: from_user|to_user|time
+- simple queries to filter read and unread messages;
+
+**db sharding and handle shutting down machine at db storage scability design examples!**
 
 <!-- https://www.palantir.com/library/
 https://www.youtube.com/watch?v=QwoCgLvoUvs
