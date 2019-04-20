@@ -55,7 +55,7 @@ Final note: There really is no such thing as "NoSQL" - it's just a meaningless t
 
 * Replication Master-Slave
 
-![alt text](https://raw.githubusercontent.com/igorbragaia/algorithms/e0329f7c64dfd13b55208e6b964bbd321908703a/interviewbit/System-Design-notes/replication-master-slave.png)
+![Alt text](/replication-master-slave.png?raw=true "Optional Title")
 
 * Replication Master-Master
 
