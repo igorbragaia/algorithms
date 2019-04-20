@@ -51,7 +51,17 @@ Final note: There really is no such thing as "NoSQL" - it's just a meaningless t
 * Graph (neo4j, titan)
 * Search (optimized for storing and searching against text, elasticsearch, solr, lucene)
 
-#### Case study
+### Vertical vs Horizontal scaling
+
+Scalling vertically means increasing CPU, DISK, RAM, etc. Note that you are constrained to physical and state of art technologies whereas scalling horizontally means increasing quantity of machines;
+
+Note that when scalling horizontally, you should keep a distributed cache in order to share states and to make it safer in case cache goes down, keep a RAID (Redundant Array of Independent Disk) that stripes data by adding redundancy to garantee availability;
+
+### Load Balancer
+
+Balances traffic by distributing request across multiple servers or databases, using different approaches like Round Robin (1->2->3->..->1->2->...) or smarter approaches like distributing traffic by kind of request (get/post image,video,text, json etc) which tends to have a better performance;
+
+### Case study
 
 Web-scale companies such as LinkedIn, Netflix, Google, Facebook, etc... have several requirements of their database systems around scalability, availability, and performance.
 
@@ -90,7 +100,9 @@ The "P" is not something you have a choice of trading off. Network partitions oc
 ![alt text](https://raw.githubusercontent.com/igorbragaia/algorithms/e0329f7c64dfd13b55208e6b964bbd321908703a/interviewbit/System-Design-notes/load-balancing%2Breplication%2Bpartitioning.png)
 
 
+# Examples
 
+## Design
 
 
 <!-- https://www.palantir.com/library/
