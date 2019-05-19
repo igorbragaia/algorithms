@@ -14,7 +14,6 @@ class QR:
         v = np.add(col, np.sign(A[0][0]) * np.linalg.norm(col) * can)
 
         H = np.identity(shape) - 2 * v.dot(np.transpose(v)) / np.transpose(v).dot(v)
-        print(H)
 
         return H
 
@@ -23,24 +22,25 @@ class QR:
         shape = A.shape[0]
         Q = np.identity(shape)
         idx = 0
+        Aprevious = A
         while idx < shape:
-            print(idx)
             innerA = innerA[idx:, idx:]
-            print(innerA)
             h = self.__solve_householder(innerA)
-            print(h)
-            if idx == 0:
-                innerA = h.dot(innerA)
-            print(innerA)
 
             H = np.identity(shape)
-            for i in range(innerA.shape[0]):
-                for j in range(innerA.shape[1]):
-                    H[i+idx][j+idx] = innerA[i][j]
+            for i in range(h.shape[0]):
+                for j in range(h.shape[1]):
+                    H[i+idx][j+idx] = h[i][j]
 
-            print(H)
+            Q = Q.dot(H)
+            innerA = H.dot(Aprevious)
+            Aprevious = innerA
 
             idx += 1
 
+        return [Q, innerA]
 
-QR().factorize(A)
+
+[Q, R] = QR().factorize(A)
+print(Q)
+print(R)
