@@ -79,32 +79,28 @@ class MaximizeFuntionSolver:
 
 
 if __name__ == '__main__':
-    while True:
-        # seeds = [[2, 2], [7, -30]]
-        seeds = [[100, 100]]
-        for [x, y] in seeds:
-            solver = MaximizeFuntionSolver(x, y)
+    seeds = [[2, 2], [3, 7], [10, 0], [-7, -7], [20, 10], [20, -40]]
+    for [x, y] in seeds:
+        solver = MaximizeFuntionSolver(x, y)
 
-            start_time = time.time()
-            function, steps, costs = solver.HillClimbing(10000)
-            print(function)
-            with open('results/HillClimbing/log.txt', 'w') as f:
-                f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
-            plt.cla()
-            plt.plot(steps, costs)
-            plt.ylabel('cost')
-            plt.xlabel('iteration')
-            plt.savefig('results/HillClimbing/log.jpg')
+        start_time = time.time()
+        function, steps, costs = solver.HillClimbing(20000)
+        with open('results/HillClimbing/x={0} y={1} log.txt'.format(x, y), 'w') as f:
+            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
+        plt.cla()
+        plt.plot(steps, costs)
+        plt.ylabel('cost')
+        plt.xlabel('iteration')
+        plt.savefig('results/HillClimbing/x={0} y={1} log.jpg'.format(x, y))
 
-            start_time = time.time()
-            function, steps, costs = solver.SimulatedAnnealing(10000)
-            print(function)
-            with open('results/SimulatedAnnealing/log.txt', 'w') as f:
-                f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
-            plt.cla()
-            plt.plot(steps, costs)
-            plt.ylabel('cost')
-            plt.xlabel('iteration')
-            plt.savefig('results/SimulatedAnnealing/log.jpg')
+        start_time = time.time()
+        function, steps, costs = solver.SimulatedAnnealing(20000)
+        with open('results/SimulatedAnnealing/x={0} y={1} log.txt'.format(x, y), 'w') as f:
+            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
+        plt.cla()
+        plt.plot(steps, costs)
+        plt.ylabel('cost')
+        plt.xlabel('iteration')
+        plt.savefig('results/SimulatedAnnealing/x={0} y={1} log.jpg'.format(x, y))
 
-        print('***')
+    print('***')
