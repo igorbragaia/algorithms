@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
 import random
-
+import time
 
 class Queen(object):
     def __init__(self, x, y):
@@ -93,7 +93,6 @@ class NQueensIterativeSolver(ABC):
                     queens = next_queens
                 else:
                     break
-            print(cost)
             if not cost:
                 return queens
 
@@ -125,6 +124,8 @@ class HillClimbing(NQueensIterativeSolver):
 
 
 if __name__ == '__main__':
+    start_time = time.time()
     hillclimbing = HillClimbing()
-    queens = hillclimbing.solve(5)
+    queens = hillclimbing.solve(7)
     print(queens)
+    print("%.2f seconds" % (time.time() - start_time))
