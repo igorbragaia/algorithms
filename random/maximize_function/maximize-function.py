@@ -77,12 +77,13 @@ class MaximizeFuntionSolver:
 
 
 if __name__ == '__main__':
-    seeds = [[2, 2], [3.5 + np.random.randn(), 3.5 + np.random.randn()]]
+    seeds = [[2, 2], [7, -10]]
     for [x, y] in seeds:
         solver = MaximizeFuntionSolver(x, y)
 
         start_time = time.time()
-        function, steps, costs = solver.HillClimbing(60000)
+        function, steps, costs = solver.HillClimbing(200000)
+        print(function)
         with open('results/HillClimbing/log.txt', 'w') as f:
             f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
         plt.cla()
@@ -92,8 +93,8 @@ if __name__ == '__main__':
         plt.savefig('results/HillClimbing/log.jpg')
 
         start_time = time.time()
-        function, steps, costs = solver.SimulatedAnnealing(60000)
-        print(costs[-1])
+        function, steps, costs = solver.SimulatedAnnealing(200000)
+        print(function)
         with open('results/SimulatedAnnealing/log.txt', 'w') as f:
             f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
         plt.cla()
