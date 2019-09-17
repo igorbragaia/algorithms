@@ -20,6 +20,38 @@ class Queen(object):
         return self.x != other.x or self.y != other.y
 
 
+class Queens(object):
+    def __init__(self, n):
+        possible_positions = []
+        for i in range(n):
+            for j in range(n):
+                possible_positions.append((i, j))
+
+        self.n = n
+        self.possible_positions = possible_positions
+        self.done = set()
+        self._queens = self.positions(shuffle=True)
+
+    def positions(self, shuffle=False):
+        if not shuffle:
+            return self._queens
+        queens = [Queen(pos[0], pos[1]) for pos in random.sample(self.possible_positions, self.n)]
+        queens_hash = str(queens)
+        while queens_hash in self.done:
+            queens = self.positions(shuffle=True)
+            queens_hash = str(queens)
+        self.done.add(queens_hash)
+        self._queens = queens
+        return self._queens
+
+    def __str__(self):
+        str_hash = ''
+        n = len(self._queens)
+        for i in range(n):
+            str_hash += " ".join(['x' if Queen(i, j) in self._queens else 'o' for j in range(n)]) + "\n"
+        return str_hash
+
+
 class NQueensIterativeSolver(ABC):
     def __init__(self):
         pass
@@ -110,11 +142,13 @@ class HillClimbing(NQueensIterativeSolver):
 
 
 if __name__ == '__main__':
-    hillclimbing = HillClimbing()
-    path = hillclimbing.solve(5)
-    i = 1
-    for queens in path:
-        print("iteracao {0}".format(i))
-        print(hillclimbing.hash(queens))
-        print()
-        i += 1
+    queens = Queens(5)
+    print(str(queens))
+    # hillclimbing = HillClimbing()
+    # path = hillclimbing.solve(5)
+    # i = 1
+    # for positions in path:
+    #     print("iteracao {0}".format(i))
+    #     print(hillclimbing.hash(positions))
+    #     print()
+    #     i += 1
