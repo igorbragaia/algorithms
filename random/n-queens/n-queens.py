@@ -3,6 +3,7 @@ import random
 import time
 import matplotlib.pyplot as plt
 
+random.seed(4)
 
 
 class Queen(object):
@@ -32,21 +33,15 @@ class Queens(object):
     def __init__(self, n):
         if n < 1:
             raise Exception('let n be higher or equal to 1')
-        possible_positions = []
-        for i in range(n):
-            for j in range(n):
-                possible_positions.append((i, j))
-
         self.n = n
         self._queens = []
-        self.possible_positions = possible_positions
         self.shuffle()
 
     def shuffle(self):
         h = list(range(self.n))
-        random.shuffle(h)
+        random.Random(3).shuffle(h)
         v = list(range(self.n))
-        random.shuffle(v)
+        random.Random(4).shuffle(v)
 
         self._queens = [Queen(h[i], v[i]) for i in range(self.n)]
 
@@ -64,10 +59,8 @@ class Queens(object):
         positions = self._queens
         cost = 0
         for i in range(len(positions)):
-            positions_cost = 0
             for j in range(len(positions)):
-                positions_cost += positions[i].attacking(positions[j])
-            cost += positions_cost ** 2
+                cost += positions[i].attacking(positions[j])
         return cost
 
     def move(self):
@@ -87,11 +80,11 @@ class Queens(object):
         return str_hash
 
 
-class SimulatedAnnealing:
+class NQueensSolver:
     def __init__(self):
         pass
 
-    def solve(self, n, maxsteps):
+    def SimulatedAnnealing(self, n, maxsteps):
         queens = Queens(n)
 
         steps = []
@@ -115,15 +108,50 @@ class SimulatedAnnealing:
 
         return queens, steps, costs
 
+    def HillClimbing(self, n):
+        queens = Queens(n)
+        steps = []
+        costs = []
+        step = 0
+        while len(costs) == 0 or costs[-1] != 0:
+            cost = queens.cost()
+
+            if step % 10 == 0 or cost == 0:
+                steps.append(step)
+                costs.append(cost)
+
+            if cost == 0:
+                return queens, steps, costs
+
+            move = queens.move()
+            new_cost = queens.cost()
+            if new_cost > cost:
+                queens.revert_move(move)
+
+            step += 1
+
+        return queens, steps, costs
+
 
 if __name__ == '__main__':
-    start_time = time.time()
-    simulatedannealing = SimulatedAnnealing()
-    queens, steps, costs = simulatedannealing.solve(25, 20000)
-    print(queens)
-    print("COST: {0}".format(queens.cost()))
-    print("%.2f seconds" % (time.time() - start_time))
-    plt.plot(steps, costs)
-    plt.ylabel('cost')
-    plt.xlabel('iteration')
-    plt.show()
+    solver = NQueensSolver()
+    for qty in [10, 15, 20, 25]:
+        start_time = time.time()
+        queens, steps, costs = solver.HillClimbing(qty)
+        with open('random/n-queens/results/HillClimbing/{0}-log.txt'.format(qty), 'w') as f:
+            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(queens, queens.cost(), round((time.time() - start_time), 2)))
+        plt.cla()
+        plt.plot(steps, costs)
+        plt.ylabel('cost')
+        plt.xlabel('iteration')
+        plt.savefig('random/n-queens/results/HillClimbing/{0}-log.jpg'.format(qty))
+
+        start_time = time.time()
+        queens, steps, costs = solver.SimulatedAnnealing(qty, 20000)
+        with open('random/n-queens/results/SimulatedAnnealing/{0}-log.txt'.format(qty), 'w') as f:
+            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(queens, queens.cost(), round((time.time() - start_time), 2)))
+        plt.cla()
+        plt.plot(steps, costs)
+        plt.ylabel('cost')
+        plt.xlabel('iteration')
+        plt.savefig('random/n-queens/results/SimulatedAnnealing/{0}-log.jpg'.format(qty))
