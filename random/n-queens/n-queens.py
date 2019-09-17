@@ -3,8 +3,6 @@ import random
 import time
 import matplotlib.pyplot as plt
 
-random.seed(4)
-
 
 class Queen(object):
     def __init__(self, x, y):
