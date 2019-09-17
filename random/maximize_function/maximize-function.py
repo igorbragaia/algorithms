@@ -19,8 +19,9 @@ class Function(object):
     def move(self):
         self.last_x = float(self.x)
         self.last_y = float(self.y)
-        self.x += np.random.randn()
-        self.y += np.random.randn()
+        normal_values = np.random.normal(0, 10, 2)
+        self.x += normal_values[0]
+        self.y += normal_values[1]
 
     def revert_move(self):
         self.x, self.last_x = float(self.last_x), float(self.x)
@@ -70,35 +71,40 @@ class MaximizeFuntionSolver:
 
             function.move()
             new_cost = function.cost()
-            if new_cost < cost:
+            deltaCost = new_cost - cost
+            if not deltaCost > 0:
                 function.revert_move()
 
         return function, steps, costs
 
 
 if __name__ == '__main__':
-    seeds = [[2, 2], [7, -10]]
-    for [x, y] in seeds:
-        solver = MaximizeFuntionSolver(x, y)
+    while True:
+        # seeds = [[2, 2], [7, -30]]
+        seeds = [[100, 100]]
+        for [x, y] in seeds:
+            solver = MaximizeFuntionSolver(x, y)
 
-        start_time = time.time()
-        function, steps, costs = solver.HillClimbing(200000)
-        print(function)
-        with open('results/HillClimbing/log.txt', 'w') as f:
-            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
-        plt.cla()
-        plt.plot(steps, costs)
-        plt.ylabel('cost')
-        plt.xlabel('iteration')
-        plt.savefig('results/HillClimbing/log.jpg')
+            start_time = time.time()
+            function, steps, costs = solver.HillClimbing(10000)
+            print(function)
+            with open('results/HillClimbing/log.txt', 'w') as f:
+                f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
+            plt.cla()
+            plt.plot(steps, costs)
+            plt.ylabel('cost')
+            plt.xlabel('iteration')
+            plt.savefig('results/HillClimbing/log.jpg')
 
-        start_time = time.time()
-        function, steps, costs = solver.SimulatedAnnealing(200000)
-        print(function)
-        with open('results/SimulatedAnnealing/log.txt', 'w') as f:
-            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
-        plt.cla()
-        plt.plot(steps, costs)
-        plt.ylabel('cost')
-        plt.xlabel('iteration')
-        plt.savefig('results/SimulatedAnnealing/log.jpg')
+            start_time = time.time()
+            function, steps, costs = solver.SimulatedAnnealing(10000)
+            print(function)
+            with open('results/SimulatedAnnealing/log.txt', 'w') as f:
+                f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
+            plt.cla()
+            plt.plot(steps, costs)
+            plt.ylabel('cost')
+            plt.xlabel('iteration')
+            plt.savefig('results/SimulatedAnnealing/log.jpg')
+
+        print('***')
