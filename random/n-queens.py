@@ -59,15 +59,15 @@ class NQueensIterativeSolver(ABC):
         pass
 
     @abstractmethod
-    def cost(self, queens: list) -> int:
+    def cost(self, queens: Queens) -> int:
         pass
 
     @abstractmethod
-    def next(self, queens: list) -> list:
+    def next(self, queens: Queens) -> Queens:
         pass
 
     @staticmethod
-    def moves_list(queens: Queens, i: int):
+    def moves_list(queens: Queens, i: int) -> list:
         positions = queens.positions
         response = []
         n = len(positions)
@@ -79,10 +79,9 @@ class NQueensIterativeSolver(ABC):
                     new_queens = Queens(n)
                     new_queens.positions = [positions[j] if j != i else new_queen for j in range(n)]
                     response.append(new_queens)
-
         return response
 
-    def solve(self, n):
+    def solve(self, n) -> Queens:
         while True:
             queens = Queens(n)
             cost = 100 * 100
