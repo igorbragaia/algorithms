@@ -33,6 +33,7 @@ class Queens(object):
         self.n = n
         self._queens = []
         self.possible_positions = possible_positions
+        self.shuffle()
 
     def shuffle(self):
         self._queens = [Queen(pos[0], pos[1]) for pos in random.sample(self.possible_positions, self.n)]
@@ -65,6 +66,12 @@ class Queens(object):
             cost += positions_cost
         return cost
 
+    def move(self):
+        all_possible_next_queens = []
+        for i in range(self.n):
+            all_possible_next_queens.extend(self.moves_list(i))
+        return random.choice(all_possible_next_queens)
+
     def moves_list(self, i: int) -> list:
         positions = self._queens
         response = []
@@ -91,7 +98,7 @@ class HillClimbing:
     def __init__(self):
         pass
 
-    def next(self, queens: Queens):
+    def _next(self, queens: Queens):
         # greedy choose
         next_cost = queens.cost()
         next_queens = queens
@@ -108,7 +115,7 @@ class HillClimbing:
             queens = Queens(n)
             cost = 100 * 100
             while cost:
-                next_queens = self.next(queens)
+                next_queens = self._next(queens)
                 new_cost = next_queens.cost()
                 print(new_cost)
                 if new_cost != cost:
@@ -120,9 +127,34 @@ class HillClimbing:
                 return queens
 
 
+class SimulatedAnnealing:
+    def __init__(self):
+        pass
+
+    def solve(self, n, maxsteps):
+        queens = Queens(n)
+
+        for step in range(maxsteps):
+            cost = queens.cost()
+            if cost == 0:
+                return [0, queens]
+            fraction = step / maxsteps  # increases over time
+            T = 1 - fraction  # decreases over time
+
+            new_queens = queens.move()
+            new_cost = new_queens.cost()
+            if new_cost < cost or np.exp(-(new_cost - cost)/T) > random.random():
+                queens = new_queens
+
+        return [cost, queens]
+
+
 if __name__ == '__main__':
     start_time = time.time()
-    hillclimbing = HillClimbing()
-    queens = hillclimbing.solve(5)
+    simulatedannealing = SimulatedAnnealing()
+    [cost, queens] = simulatedannealing.solve(6, 10000)
+    # hillclimbing = HillClimbing()
+    # queens = hillclimbing.solve(5)
+    print("COST: {0}".format(cost))
     print(queens)
     print("%.2f seconds" % (time.time() - start_time))
