@@ -1,6 +1,8 @@
 import numpy as np
 import random
 import time
+import matplotlib.pyplot as plt
+
 
 
 class Queen(object):
@@ -11,7 +13,7 @@ class Queen(object):
     def attacking(self, other):
         if self.x == other.x and self.y == other.y:
             return False
-        return self.x == other.x or self.y == other.y or np.abs(self.x - other.x) == np.abs(self.y - other.y)
+        return np.abs(self.x - other.x) == np.abs(self.y - other.y)
 
     def swap(self, other):
         self.x, other.x = other.x, self.x
@@ -65,14 +67,17 @@ class Queens(object):
             positions_cost = 0
             for j in range(len(positions)):
                 positions_cost += positions[i].attacking(positions[j])
-            cost += positions_cost
+            cost += positions_cost ** 2
         return cost
 
-    def move(self, choices=None):
-        if not choices:
-            [first, second] = random.choices(list(range(self.n)), k=2)
+    def move(self):
+        [first, second] = random.choices(list(range(self.n)), k=2)
         self._queens[first].swap(self._queens[second])
-        return choices
+        return [first, second]
+
+    def revert_move(self, last_move):
+        [first, second] = last_move
+        self._queens[first].swap(self._queens[second])
 
     def __str__(self):
         str_hash = ''
@@ -89,32 +94,36 @@ class SimulatedAnnealing:
     def solve(self, n, maxsteps):
         queens = Queens(n)
 
+        steps = []
+        costs = []
         for step in range(maxsteps):
             cost = queens.cost()
 
-            if step % 1000 == 0:
-                print(cost)
+            if step % 10 == 0 or cost == 0:
+                steps.append(step)
+                costs.append(cost)
 
             if cost == 0:
-                return queens
+                return queens, steps, costs
             fraction = step / maxsteps  # increases over time
-            T = 1 - fraction  # decreases over time
+            T = max(0.1, min(1, 1 - fraction))  # decreases over time
 
             move = queens.move()
             new_cost = queens.cost()
             if not (new_cost < cost or np.exp(-(new_cost - cost)/T) > random.random()):
-                # revert movement
-                queens.move(choices=move)
+                queens.revert_move(move)
 
-        return queens
+        return queens, steps, costs
 
 
 if __name__ == '__main__':
     start_time = time.time()
     simulatedannealing = SimulatedAnnealing()
-    queens = simulatedannealing.solve(15, 20000)
-    # hillclimbing = HillClimbing()
-    # queens = hillclimbing.solve(5)
+    queens, steps, costs = simulatedannealing.solve(25, 20000)
     print(queens)
     print("COST: {0}".format(queens.cost()))
     print("%.2f seconds" % (time.time() - start_time))
+    plt.plot(steps, costs)
+    plt.ylabel('cost')
+    plt.xlabel('iteration')
+    plt.show()
