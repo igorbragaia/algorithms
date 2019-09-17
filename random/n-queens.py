@@ -1,7 +1,7 @@
-from abc import ABC, abstractmethod
 import numpy as np
 import random
 import time
+
 
 class Queen(object):
     def __init__(self, x, y):
@@ -29,6 +29,7 @@ class Queens(object):
             for j in range(n):
                 possible_positions.append((i, j))
 
+        self._metadata = {}
         self.n = n
         self._queens = []
         self.possible_positions = possible_positions
@@ -46,29 +47,26 @@ class Queens(object):
     def positions(self, positions):
         self._queens = positions
 
-    def __str__(self):
-        str_hash = ''
-        n = len(self._queens)
-        for i in range(n):
-            str_hash += " ".join(['x' if Queen(i, j) in self._queens else 'o' for j in range(n)]) + "\n"
-        return str_hash
+    @property
+    def metadata(self):
+        return self._metadata
 
+    @metadata.setter
+    def metadata(self, metadata):
+        self._metadata = metadata
 
-class NQueensIterativeSolver(ABC):
-    def __init__(self):
-        pass
+    def cost(self):
+        positions = self._queens
+        cost = 0
+        for i in range(len(positions)):
+            positions_cost = 0
+            for j in range(len(positions)):
+                positions_cost += positions[i].attacking(positions[j])
+            cost += positions_cost
+        return cost
 
-    @abstractmethod
-    def cost(self, queens: Queens) -> int:
-        pass
-
-    @abstractmethod
-    def next(self, queens: Queens) -> Queens:
-        pass
-
-    @staticmethod
-    def moves_list(queens: Queens, i: int) -> list:
-        positions = queens.positions
+    def moves_list(self, i: int) -> list:
+        positions = self._queens
         response = []
         n = len(positions)
         moves = [(1, -1), (1, 1), (-1, 1), (-1, -1)]
@@ -81,51 +79,50 @@ class NQueensIterativeSolver(ABC):
                     response.append(new_queens)
         return response
 
-    def solve(self, n) -> Queens:
-        while True:
-            queens = Queens(n)
-            cost = 100 * 100
-            while cost:
-                new_cost = self.cost(queens)
-                next_queens = self.next(queens)
-                if new_cost != cost:
-                    cost = new_cost
-                    queens = next_queens
-                else:
-                    break
-            if not cost:
-                return queens
+    def __str__(self):
+        str_hash = ''
+        n = len(self._queens)
+        for i in range(n):
+            str_hash += " ".join(['x' if Queen(i, j) in self._queens else 'o' for j in range(n)]) + "\n"
+        return str_hash
 
 
-class HillClimbing(NQueensIterativeSolver):
+class HillClimbing:
     def __init__(self):
-        super().__init__()
-
-    def cost(self, queens: Queens):
-        positions = queens.positions
-        cost = 0
-        for i in range(len(positions)):
-            positions_cost = 0
-            for j in range(len(positions)):
-                positions_cost += positions[i].attacking(positions[j])
-            cost += positions_cost
-        return cost
+        pass
 
     def next(self, queens: Queens):
-        next_cost = self.cost(queens)
+        # greedy choose
+        next_cost = queens.cost()
         next_queens = queens
         for i in range(len(queens.positions)):
-            for possible_next_queens in self.moves_list(queens, i):
-                possible_next_cost = self.cost(possible_next_queens)
+            for possible_next_queens in queens.moves_list(i):
+                possible_next_cost = possible_next_queens.cost()
                 if possible_next_cost < next_cost:
                     next_cost = possible_next_cost
                     next_queens = possible_next_queens
         return next_queens
 
+    def solve(self, n) -> Queens:
+        while True:
+            queens = Queens(n)
+            cost = 100 * 100
+            while cost:
+                next_queens = self.next(queens)
+                new_cost = next_queens.cost()
+                print(new_cost)
+                if new_cost != cost:
+                    cost = new_cost
+                    queens = next_queens
+                else:
+                    break
+            if cost == 0:
+                return queens
+
 
 if __name__ == '__main__':
     start_time = time.time()
     hillclimbing = HillClimbing()
-    queens = hillclimbing.solve(7)
+    queens = hillclimbing.solve(5)
     print(queens)
     print("%.2f seconds" % (time.time() - start_time))
