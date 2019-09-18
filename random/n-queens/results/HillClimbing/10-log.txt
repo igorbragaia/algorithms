@@ -1,14 +1,14 @@
 RESULT
-o o o o o o x o o o
-o o o o o o o o x o
-o o o x o o o o o o
-o x o o o o o o o o
-o o o o x o o o o o
-o o o o o o o x o o
-o o o o o o o o o x
-x o o o o o o o o o
 o o x o o o o o o o
 o o o o o x o o o o
+o o o o o o o o x o
+o x o o o o o o o o
+o o o o o o o x o o
+x o o o o o o o o o
+o o o x o o o o o o
+o o o o o o x o o o
+o o o o x o o o o o
+o o o o o o o o o x
 
 COST: 0
-0.53 seconds
+0.42 seconds

@@ -101,7 +101,7 @@ class NQueensSolver:
 
             move = queens.move()
             new_cost = queens.cost()
-            if not (new_cost < cost or np.exp(-(new_cost - cost)/T) > random.random()):
+            if new_cost > cost or np.exp((new_cost - cost)/T) < random.random():
                 queens.revert_move(move)
 
         return queens, steps, costs
@@ -134,6 +134,7 @@ class NQueensSolver:
 if __name__ == '__main__':
     solver = NQueensSolver()
     for qty in [10, 15, 20, 25]:
+        print(qty)
         start_time = time.time()
         queens, steps, costs = solver.HillClimbing(qty)
         with open('random/n-queens/results/HillClimbing/{0}-log.txt'.format(qty), 'w') as f:
@@ -143,6 +144,7 @@ if __name__ == '__main__':
         plt.ylabel('cost')
         plt.xlabel('iteration')
         plt.savefig('random/n-queens/results/HillClimbing/{0}-log.jpg'.format(qty))
+        print('HillClimbing')
 
         start_time = time.time()
         queens, steps, costs = solver.SimulatedAnnealing(qty, 20000)
@@ -153,3 +155,4 @@ if __name__ == '__main__':
         plt.ylabel('cost')
         plt.xlabel('iteration')
         plt.savefig('random/n-queens/results/SimulatedAnnealing/{0}-log.jpg'.format(qty))
+        print('SimulatedAnnealing')

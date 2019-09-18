@@ -1,29 +1,29 @@
 RESULT
-o o o o o o o o o x o o o o o o o o o o o o o o o
-o o o o o o o o o o o o o o o o x o o o o o o o o
-o o o o o o o o o o x o o o o o o o o o o o o o o
-x o o o o o o o o o o o o o o o o o o o o o o o o
-o o o o o o o o o o o o o o o o o o o o o o o o x
-o o o o o o o o o o o o o o o o o x o o o o o o o
-o o o o o o o o o o o o o o o o o o o o o o o x o
-o o o o o o o o o o o o x o o o o o o o o o o o o
-o o o o o o o x o o o o o o o o o o o o o o o o o
-o o o o x o o o o o o o o o o o o o o o o o o o o
-o o o o o o o o x o o o o o o o o o o o o o o o o
-o o o x o o o o o o o o o o o o o o o o o o o o o
-o o o o o o o o o o o o o o o o o o x o o o o o o
-o o o o o o o o o o o o o x o o o o o o o o o o o
-o o o o o o o o o o o o o o o o o o o o o x o o o
-o x o o o o o o o o o o o o o o o o o o o o o o o
-o o o o o x o o o o o o o o o o o o o o o o o o o
 o o o o o o o o o o o o o o o o o o o o x o o o o
-o o o o o o o o o o o o o o o o o o o o o o x o o
-o o o o o o x o o o o o o o o o o o o o o o o o o
-o o o o o o o o o o o o o o x o o o o o o o o o o
-o o o o o o o o o o o x o o o o o o o o o o o o o
-o o x o o o o o o o o o o o o o o o o o o o o o o
+o o o o x o o o o o o o o o o o o o o o o o o o o
+o o o o o o o x o o o o o o o o o o o o o o o o o
 o o o o o o o o o o o o o o o o o o o x o o o o o
+o o o o o o o o o o o o x o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o o o x
+o o o o o o o o o o o o o o o o o o o o o x o o o
+o o o o o x o o o o o o o o o o o o o o o o o o o
+x o o o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o x o o o o o o o o
+o o o x o o o o o o o o o o o o o o o o o o o o o
 o o o o o o o o o o o o o o o x o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o o x o
+o o o o o o o o x o o o o o o o o o o o o o o o o
+o o o o o o o o o o x o o o o o o o o o o o o o o
+o o x o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o x o o o o o o o o o o o
+o o o o o o x o o o o o o o o o o o o o o o o o o
+o x o o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o x o o o o o o
+o o o o o o o o o o o x o o o o o o o o o o o o o
+o o o o o o o o o x o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o x o o
+o o o o o o o o o o o o o o o o o x o o o o o o o
+o o o o o o o o o o o o o o x o o o o o o o o o o
 
-COST: 0
-48.75 seconds
+COST: 2
+208.89 seconds
