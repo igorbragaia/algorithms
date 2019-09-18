@@ -53,8 +53,7 @@ class MaximizeFuntionSolver:
 
             function.move()
             new_cost = function.cost()
-            deltaCost = new_cost - cost
-            if not (deltaCost > 0 and np.exp(deltaCost/T) > random.random()):
+            if new_cost < cost or np.exp((-(new_cost - cost)) / T) < random.random():
                 function.revert_move()
         return function, steps, costs
 
@@ -71,20 +70,20 @@ class MaximizeFuntionSolver:
 
             function.move()
             new_cost = function.cost()
-            deltaCost = new_cost - cost
-            if not deltaCost > 0:
+            if new_cost < cost:
                 function.revert_move()
 
         return function, steps, costs
 
 
 if __name__ == '__main__':
-    seeds = [[2, 2], [3, 7], [10, 0], [-7, -7], [20, 10], [20, -40]]
+    maxsteps = 50000
+    seeds = [[2, 2], [3, 7], [-7, -7], [0, 100], [20, -40]]
     for [x, y] in seeds:
         solver = MaximizeFuntionSolver(x, y)
 
         start_time = time.time()
-        function, steps, costs = solver.HillClimbing(20000)
+        function, steps, costs = solver.HillClimbing(maxsteps)
         with open('results/HillClimbing/x={0} y={1} log.txt'.format(x, y), 'w') as f:
             f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
         plt.cla()
@@ -94,7 +93,7 @@ if __name__ == '__main__':
         plt.savefig('results/HillClimbing/x={0} y={1} log.jpg'.format(x, y))
 
         start_time = time.time()
-        function, steps, costs = solver.SimulatedAnnealing(20000)
+        function, steps, costs = solver.SimulatedAnnealing(maxsteps)
         with open('results/SimulatedAnnealing/x={0} y={1} log.txt'.format(x, y), 'w') as f:
             f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
         plt.cla()
@@ -102,5 +101,3 @@ if __name__ == '__main__':
         plt.ylabel('cost')
         plt.xlabel('iteration')
         plt.savefig('results/SimulatedAnnealing/x={0} y={1} log.jpg'.format(x, y))
-
-    print('***')
