@@ -37,9 +37,9 @@ class Queens(object):
 
     def shuffle(self):
         h = list(range(self.n))
-        random.Random(3).shuffle(h)
+        random.Random(7).shuffle(h)
         v = list(range(self.n))
-        random.Random(4).shuffle(v)
+        random.Random(5).shuffle(v)
 
         self._queens = [Queen(h[i], v[i]) for i in range(self.n)]
 
@@ -79,24 +79,22 @@ class Queens(object):
 
 
 class NQueensSolver:
-    def __init__(self):
-        pass
+    def __init__(self, maxsteps):
+        self.maxsteps = maxsteps
 
-    def SimulatedAnnealing(self, n, maxsteps):
+    def SimulatedAnnealing(self, n):
         queens = Queens(n)
 
         steps = []
         costs = []
-        for step in range(maxsteps):
+        for step in range(self.maxsteps):
             cost = queens.cost()
 
-            if step % 10 == 0 or cost == 0:
+            if step % 10 == 0:
                 steps.append(step)
                 costs.append(cost)
 
-            if cost == 0:
-                return queens, steps, costs
-            fraction = step / maxsteps  # increases over time
+            fraction = step / self.maxsteps  # increases over time
             T = max(0.1, min(1, 1 - fraction))  # decreases over time
 
             move = queens.move()
@@ -110,49 +108,44 @@ class NQueensSolver:
         queens = Queens(n)
         steps = []
         costs = []
-        step = 0
-        while len(costs) == 0 or costs[-1] != 0:
+        for step in range(self.maxsteps):
             cost = queens.cost()
 
-            if step % 10 == 0 or cost == 0:
+            if step % 10 == 0:
                 steps.append(step)
                 costs.append(cost)
-
-            if cost == 0:
-                return queens, steps, costs
 
             move = queens.move()
             new_cost = queens.cost()
             if new_cost > cost:
                 queens.revert_move(move)
 
-            step += 1
-
         return queens, steps, costs
 
 
 if __name__ == '__main__':
-    solver = NQueensSolver()
-    for qty in [10, 15, 20, 25]:
-        print(qty)
-        start_time = time.time()
-        queens, steps, costs = solver.HillClimbing(qty)
-        with open('random/n-queens/results/HillClimbing/{0}-log.txt'.format(qty), 'w') as f:
-            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(queens, queens.cost(), round((time.time() - start_time), 2)))
-        plt.cla()
-        plt.plot(steps, costs)
-        plt.ylabel('cost')
-        plt.xlabel('iteration')
-        plt.savefig('random/n-queens/results/HillClimbing/{0}-log.jpg'.format(qty))
-        print('HillClimbing')
+    solver = NQueensSolver(20000)
+    for qty in [25]:
+        with open('results/{0}-log.txt'.format(qty), 'w') as f:
+            print('n={0}\n\n'.format(qty))
+            start_time = time.time()
+            queens, steps, costs = solver.HillClimbing(qty)
+            print(len(costs))
+            f.write("Hill Climbing\nRESULT\n{0}\nCOST: {1}\n{2} seconds\n\n".format(queens, queens.cost(), round((time.time() - start_time), 2)))
+            plt.cla()
+            plt.plot(steps, costs)
+            plt.ylabel('cost')
+            plt.xlabel('iteration')
+            print('HillClimbing')
 
-        start_time = time.time()
-        queens, steps, costs = solver.SimulatedAnnealing(qty, 20000)
-        with open('random/n-queens/results/SimulatedAnnealing/{0}-log.txt'.format(qty), 'w') as f:
-            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(queens, queens.cost(), round((time.time() - start_time), 2)))
-        plt.cla()
-        plt.plot(steps, costs)
-        plt.ylabel('cost')
-        plt.xlabel('iteration')
-        plt.savefig('random/n-queens/results/SimulatedAnnealing/{0}-log.jpg'.format(qty))
-        print('SimulatedAnnealing')
+            start_time = time.time()
+            queens, steps, costs = solver.SimulatedAnnealing(qty)
+            print(len(costs))
+            f.write("Simulated Annealing\nRESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(queens, queens.cost(), round((time.time() - start_time), 2)))
+            plt.plot(steps, costs)
+            plt.ylabel('cost')
+            plt.xlabel('iteration')
+
+            plt.legend(['Hill Climbing', 'Simulated Annealing'])
+            plt.savefig('results/{0}-log.jpg'.format(qty))
+            print('SimulatedAnnealing')

@@ -1,0 +1,61 @@
+Hill Climbing
+RESULT
+o o o o o o o o o o o o o o o o o o o o o o x o o
+o o o o o o o x o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o x o o o o o o o o o o o
+o o o o x o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o x o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o x o o o o o o
+o o o o o x o o o o o o o o o o o o o o o o o o o
+o o o x o o o o o o o o o o o o o o o o o o o o o
+o x o o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o x o o o o o o o o
+o o o o o o o o o o o o o o o o o o o x o o o o o
+o o x o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o x o o o o o o o o o
+o o o o o o o o x o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o o o x
+o o o o o o o o o o o o o o o o o x o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o x o o o
+x o o o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o x o o o o o o o o o o o o o o o o o o
+o o o o o o o o o x o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o x o o o o o o o o o o
+o o o o o o o o o o x o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o x o o o o
+o o o o o o o o o o o o o o o o o o o o o o o x o
+o o o o o o o o o o o x o o o o o o o o o o o o o
+
+COST: 0
+264.09 seconds
+
+Simulated Annealing
+RESULT
+o o o o o o o o o o o o o o o o o x o o o o o o o
+o o o o o o o o o o o o o o o x o o o o o o o o o
+o o o o o o o o x o o o o o o o o o o o o o o o o
+o o o o x o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o x o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o o o x
+o o o o o o x o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o x o o o o o o o o
+o o o o o o o o o o o o x o o o o o o o o o o o o
+x o o o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o x o o o o
+o o o o o o o o o o o o o x o o o o o o o o o o o
+o x o o o o o o o o o o o o o o o o o o o o o o o
+o o o o o x o o o o o o o o o o o o o o o o o o o
+o o o o o o o x o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o o x o
+o o o x o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o x o o
+o o o o o o o o o o o o o o x o o o o o o o o o o
+o o o o o o o o o x o o o o o o o o o o o o o o o
+o o x o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o x o o o o o
+o o o o o o o o o o o o o o o o o o o o o x o o o
+o o o o o o o o o o o o o o o o o o x o o o o o o
+o o o o o o o o o o x o o o o o o o o o o o o o o
+
+COST: 0
+261.37 seconds

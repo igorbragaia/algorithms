@@ -80,24 +80,23 @@ if __name__ == '__main__':
     maxsteps = 50000
     seeds = [[2, 2], [3, 7], [-7, -7], [0, 100], [20, -40]]
     for [x, y] in seeds:
-        solver = MaximizeFuntionSolver(x, y)
+        print(x, y)
+        with open('results/x={0} y={1}.txt'.format(x, y), 'w') as f:
+            solver = MaximizeFuntionSolver(x, y)
 
-        start_time = time.time()
-        function, steps, costs = solver.HillClimbing(maxsteps)
-        with open('results/HillClimbing/x={0} y={1} log.txt'.format(x, y), 'w') as f:
-            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
-        plt.cla()
-        plt.plot(steps, costs)
-        plt.ylabel('cost')
-        plt.xlabel('iteration')
-        plt.savefig('results/HillClimbing/x={0} y={1} log.jpg'.format(x, y))
+            start_time = time.time()
+            function, steps, costs = solver.HillClimbing(maxsteps)
+            f.write("Hill Climbing\nRESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
+            plt.cla()
+            plt.plot(steps, costs)
+            plt.ylabel('cost')
+            plt.xlabel('iteration')
 
-        start_time = time.time()
-        function, steps, costs = solver.SimulatedAnnealing(maxsteps)
-        with open('results/SimulatedAnnealing/x={0} y={1} log.txt'.format(x, y), 'w') as f:
-            f.write("RESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
-        plt.cla()
-        plt.plot(steps, costs)
-        plt.ylabel('cost')
-        plt.xlabel('iteration')
-        plt.savefig('results/SimulatedAnnealing/x={0} y={1} log.jpg'.format(x, y))
+            start_time = time.time()
+            function, steps, costs = solver.SimulatedAnnealing(maxsteps)
+            f.write("Simulated Annealing\nRESULT\n{0}\nCOST: {1}\n{2} seconds\n".format(function, function.cost(), round((time.time() - start_time), 2)))
+            plt.plot(steps, costs)
+            plt.ylabel('cost')
+            plt.xlabel('iteration')
+            plt.legend(['Hill Climbing', 'Simulated Annealing'])
+            plt.savefig('results/x={0} y={1}.jpg'.format(x, y))

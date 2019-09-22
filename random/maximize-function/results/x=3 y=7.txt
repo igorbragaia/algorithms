@@ -1,0 +1,10 @@
+Hill Climbing
+RESULT
+f(-0.0, 0.04) = 3.99
+COST: 3.9942791938671913
+2.96 seconds
+Simulated Annealing
+RESULT
+f(0.08, 0.0) = 3.97
+COST: 3.9742707479480504
+3.01 seconds
