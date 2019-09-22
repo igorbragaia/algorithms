@@ -1,0 +1,29 @@
+RESULT
+o o o o o o o o o o o o o o x o o o o o o o o o o
+o o o o o o o x o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o x o o o o o o
+o o x o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o x o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o x o o
+o o o o o o o o o o o o o o o o o o o x o o o o o
+o o o o o o o o o o o o o o o o o x o o o o o o o
+o o o o o x o o o o o o o o o o o o o o o o o o o
+o x o o o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o x o o o o o o o o o o o o o
+o o o o x o o o o o o o o o o o o o o o o o o o o
+o o o o o o x o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o x o o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o o x o
+o o o o o o o o o o o o o o o o o o o o x o o o o
+o o o o o o o o o o o o o o o o x o o o o o o o o
+o o o o o o o o o o o o o o o o o o o o o o o o x
+o o o o o o o o o o o o o o o o o o o o o x o o o
+x o o o o o o o o o o o o o o o o o o o o o o o o
+o o o x o o o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o x o o o o o o o o o o o o o o
+o o o o o o o o x o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o x o o o o o o o o o o o
+o o o o o o o o o x o o o o o o o o o o o o o o o
+
+COST: 0
+15.52 seconds

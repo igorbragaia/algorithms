@@ -1,0 +1,24 @@
+RESULT
+o o o o o o o o o o o x o o o o o o o o
+o o o o o o o o o o o o o o o o x o o o
+o o o o o o o o x o o o o o o o o o o o
+o o o o o x o o o o o o o o o o o o o o
+x o o o o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o o o o o x o o
+o o o o o o o o o o o o o o o o o o o x
+o o o o o o o o o o o o o o x o o o o o
+o o o o o o o o o o o o o o o o o o x o
+o o o o o o x o o o o o o o o o o o o o
+o o o o x o o o o o o o o o o o o o o o
+o o o o o o o o o x o o o o o o o o o o
+o x o o o o o o o o o o o o o o o o o o
+o o o x o o o o o o o o o o o o o o o o
+o o o o o o o o o o o o o x o o o o o o
+o o o o o o o o o o o o o o o x o o o o
+o o o o o o o x o o o o o o o o o o o o
+o o x o o o o o o o o o o o o o o o o o
+o o o o o o o o o o x o o o o o o o o o
+o o o o o o o o o o o o x o o o o o o o
+
+COST: 0
+9.46 seconds
