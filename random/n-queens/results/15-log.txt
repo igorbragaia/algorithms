@@ -1,0 +1,41 @@
+Hill Climbing
+RESULT
+o o o o o o o o o o x o o o o
+o o o x o o o o o o o o o o o
+o o o o o x o o o o o o o o o
+o o o o o o o o o o o x o o o
+o o o o x o o o o o o o o o o
+x o o o o o o o o o o o o o o
+o o o o o o o o o o o o o x o
+o o o o o o o o x o o o o o o
+o x o o o o o o o o o o o o o
+o o o o o o o o o o o o o o x
+o o o o o o o x o o o o o o o
+o o x o o o o o o o o o o o o
+o o o o o o x o o o o o o o o
+o o o o o o o o o x o o o o o
+o o o o o o o o o o o o x o o
+
+COST: 0
+98.16 seconds
+
+Simulated Annealing
+RESULT
+o o o o o o o o o o o o x o o
+o x o o o o o o o o o o o o o
+o o o o o o o o o o o x o o o
+o o o o o o o x o o o o o o o
+o o x o o o o o o o o o o o o
+x o o o o o o o o o o o o o o
+o o o o o x o o o o o o o o o
+o o o o o o o o o o o o o x o
+o o o o o o o o o o x o o o o
+o o o o o o o o o o o o o o x
+o o o o o o x o o o o o o o o
+o o o x o o o o o o o o o o o
+o o o o o o o o o x o o o o o
+o o o o x o o o o o o o o o o
+o o o o o o o o x o o o o o o
+
+COST: 0
+95.72 seconds
